@@ -14,6 +14,7 @@ Note: This is not meant to be a starter kit, nor is it meant to have a load of f
 - Redirect to "/""
 - Redirect to https (enabled by default)
 - Redirect /umbraco to /404 (for content delivery instance)
+- Internal rewrite to /ErrorPages/500.html
 
 ### Optimisations
 - Gzip static files
