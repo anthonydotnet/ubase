@@ -1,0 +1,14 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<IPublishedContent>
+@using System.Linq
+@{
+    Layout = null; /* TODO: Do all of this craziness somewhere else!!! */
+    var seoSettings = Model.AncestorOrSelf("siteRoot")
+                    .Children()
+                    .Single(x => x.ContentType.Alias == "settings")
+                    .Children()
+                    .Single(x => x.ContentType.Alias == "seoSettings");
+    HttpContext.Current.Response.ClearHeaders();
+    HttpContext.Current.Response.AddHeader("Content-Type", "text/plain; charset=utf-8");
+}@seoSettings.Value("robotsTxt")
+
+

@@ -1,0 +1,42 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{Layout = null;
+    Response.ContentType = "text/xml";
+    var root = Model.AncestorOrSelf("siteRoot");
+    var home = root.Children.Single(x=>x.ContentType.Alias == "home");
+    HttpContext.Current.Response.ClearHeaders();
+    HttpContext.Current.Response.AddHeader("Content-Type", "text/xml; charset=utf-8");
+}<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://www.google.com/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    @RenderSiteMapUrlEntry(home)
+    @RenderSiteMapUrlEntriesForChildren(root.Children().Where(x => x.ContentType.Alias != "home"))
+</urlset>
+
+
+@helper RenderSiteMapUrlEntry(IPublishedContent node)
+{
+    var changeFreq = node.Value<string>("seoFrequency");
+    if (string.IsNullOrEmpty(changeFreq))
+    {
+        changeFreq = "monthly";
+    }
+
+    var priority = node.Value<string>("seoPriority");
+    if (string.IsNullOrEmpty(priority))
+    {
+        priority = "0.5";
+    }
+    <url>
+        <loc>@node.UrlAbsolute()</loc>
+        <lastmod>@(string.Format("{0:s}+00:00", node.UpdateDate))</lastmod>
+        <changefreq>@changeFreq</changefreq>
+        <priority>@priority</priority>
+    </url>
+}
+
+@helper RenderSiteMapUrlEntriesForChildren(IEnumerable<IPublishedContent> pages)
+{
+    foreach (var page in pages.Where(x => x.Value<bool>("showInSitemapXml")))
+    {
+        @RenderSiteMapUrlEntry(page)
+        @RenderSiteMapUrlEntriesForChildren(page.Children)
+    }
+}
