@@ -35,6 +35,7 @@ Note: This is not meant to be a starter kit, nor is it meant to have a load of f
 - Site Root (requires selection of Home node)
 - Configuration (lives in Site Root)
 - Home (lives under Site Root)
+- Configuration (lives in Site Root)
 - Seo Mixin
 - Base Page (implements Seo Mixin)
 
