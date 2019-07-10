@@ -9,9 +9,14 @@ Note: This is not meant to be a starter kit, nor is it meant to have a load of f
 
 
 # Base Functionality
+## Visual Studio Structure
+- Application.Web - Umbraco
+- Application.Core - Builders, Services
+- Application.Models - Models Builder, other application models
+
 ## Web.config
 ### Redirects
-- Redirect to "/""
+- Remove "/""
 - Redirect to https (enabled by default)
 - Redirect /umbraco to /404 (for content delivery instance)
 - Internal rewrite to /ErrorPages/500.html
@@ -27,14 +32,14 @@ Note: This is not meant to be a starter kit, nor is it meant to have a load of f
 
 ## Umbraco (TBD)
 ### DocumentTypes
-- Site Root (allows multiple instances)
+- Site Root (requires selection of Home node)
+- Configuration (lives in Site Root)
 - Home (lives under Site Root)
-- Configuration (lives under Site Root)
 - Seo Mixin
 - Base Page (implements Seo Mixin)
 
 
-## Umbraco Packages
+## Umbraco Packages (TBD)
 - USync
 - Meganav
 - SiteLock?
