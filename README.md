@@ -1,5 +1,14 @@
 # dangeasy-umbraco-visual-studio
 
+# Setup Instructions
+1. Fork/copy this repository, then build in Visual Studio
+2. Run application and go through standard Umbraco setup WITHOUT a starter kit
+3. Go to Settings section -> usych, and click Import
+4. Go to Content section, create Root and Home nodes.
+
+
+
+
 # What is this?
 A base Visual Studio solution for Umbraco 8.1+.  
 
@@ -30,14 +39,14 @@ Note: This is not meant to be a starter kit, nor is it meant to have a load of f
 - Sitemap.xml (generated)
 
 
-## Umbraco (TBD)
+## Umbraco
 ### DocumentTypes
 - Site Root (requires selection of Home node)
-- Configuration (lives in Site Root)
+- Site Configuration (lives in Site Root node)
 - Home (lives under Site Root)
 - Configuration (lives in Site Root)
-- Seo Mixin
-- Base Page (implements Seo Mixin)
+- Page Settings Mixin (includes SEO & scripts)
+- Base Page (implements Page Settings Mixin)
 
 
 ## Umbraco Packages (TBD)
