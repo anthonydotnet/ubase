@@ -55,6 +55,12 @@
     <Reference Include="CSharpTest.Net.Collections, Version=14.906.1403.1082, Culture=neutral, PublicKeyToken=06aee00cce822474, processorArchitecture=MSIL">
       <HintPath>..\packages\CSharpTest.Net.Collections.14.906.1403.1082\lib\net40\CSharpTest.Net.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="DangEasy.Caching.MemoryCache, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DangEasy.Caching.MemoryCache.2.1.0\lib\net472\DangEasy.Caching.MemoryCache.dll</HintPath>
+    </Reference>
+    <Reference Include="DangEasy.Interfaces.Caching, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DangEasy.Interfaces.Caching.2.1.0\lib\net472\DangEasy.Interfaces.Caching.dll</HintPath>
+    </Reference>
     <Reference Include="Examine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Examine.1.0.0\lib\net452\Examine.dll</HintPath>
     </Reference>
@@ -449,7 +455,11 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\CachePurging.cs" />
+    <Compile Include="App_Start\Mapping.cs" />
+    <Compile Include="App_Start\IoC.cs" />
     <Compile Include="App_Start\Routing\Routes.cs" />
+    <Compile Include="Controllers\Hijacks\Home.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestPages\CrashingPage.aspx.cs">
       <DependentUpon>CrashingPage.aspx</DependentUpon>
@@ -504,7 +514,6 @@
   <ItemGroup>
     <Folder Include="Controllers\Backoffice\" />
     <Folder Include="Controllers\ChildActions\" />
-    <Folder Include="Controllers\Hijacks\" />
     <Folder Include="Controllers\WebApi\" />
     <Folder Include="Views\MacroPartials\" />
   </ItemGroup>
