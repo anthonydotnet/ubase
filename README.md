@@ -1,20 +1,14 @@
-# dangeasy-umbraco-visual-studio
+# ubase - What is it?
+A base Visual Studio solution for Umbraco 8.1+.  
+The solution is a SOLID foundation of common patterns, folder structures, and website features which are widely accepted as "best practice" in the Umbraco community. USync definitions in this solution provide a  
+
+Note: This is not meant to be a "starter kit" per se, nor is it meant to have a load of features which are toggled. 
 
 # Setup Instructions
 1. Fork/copy this repository, then build in Visual Studio
 2. Run application and go through standard Umbraco setup WITHOUT a starter kit
 3. Go to Settings section -> usych, and click Import
 4. Go to Content section, create Root and Home nodes.
-
-
-
-
-# What is this?
-A base Visual Studio solution for Umbraco 8.1+.  
-
-The solution is a SOLID foundation of common patterns, folder structures, and website features which are widely accepted as "best practice" in the Umbraco community. 
-
-Note: This is not meant to be a starter kit, nor is it meant to have a load of features which are toggled. 
 
 
 # Base Functionality
@@ -27,7 +21,6 @@ Note: This is not meant to be a starter kit, nor is it meant to have a load of f
 ### Redirects
 - Remove "/""
 - Redirect to https (enabled by default)
-- Redirect /umbraco to /404 (for content delivery instance)
 - Internal rewrite to /ErrorPages/500.html
 
 ### Optimisations
@@ -43,7 +36,7 @@ Note: This is not meant to be a starter kit, nor is it meant to have a load of f
 ### Core DocumentTypes
 - Site Container (houses Site and Repository Container)
 - Site (requires selection of Home node)
-	- Configuration (lives in Site Root node)
+	- Configuration (lives in Site node)
 - Repository Container (for housing of partial content/elements)	
 
 
@@ -55,15 +48,15 @@ Note: This is not meant to be a starter kit, nor is it meant to have a load of f
 
 
 ### Content Node Structure
-The node structure 
+A base node structure is provided which allows flexibility, multi-websites and separation of partial data elements.
 
-Site Container
- - Website (contains hostname)
-   - Home
-   - Eror404
- - Data Repositories	
+- Site Container
+  - Website (put hostname here)
+    - Home
+    - Eror404
+  - Data Repositories	
 	
-Data repositories are a common way to store partial content/elements which need to be referenced across your website. 
+Note: Data repositories are a common way to store partial content/elements which need to be referenced across your website. 
 For example:
 - Taxonomies 
    - Categories 
@@ -74,8 +67,7 @@ For example:
 - External Links 
 
 
-
-## Umbraco Packages (TBD)
+## Umbraco Packages 
 - USync
-- Meganav
-- SiteLock?
+- Meganav (TBD)
+- SiteLock (TBD)
