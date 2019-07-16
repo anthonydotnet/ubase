@@ -40,13 +40,39 @@ Note: This is not meant to be a starter kit, nor is it meant to have a load of f
 
 
 ## Umbraco
-### DocumentTypes
-- Site Root (requires selection of Home node)
-- Site Configuration (lives in Site Root node)
+### Core DocumentTypes
+- Site Container (houses Site and Repository Container)
+- Site (requires selection of Home node)
+	- Configuration (lives in Site Root node)
+- Repository Container (for housing of partial content/elements)	
+
+
+### Page DocumentTypes
 - Home (lives under Site Root)
-- Configuration (lives in Site Root)
-- Page Settings Mixin (includes SEO & scripts)
 - Base Page (implements Page Settings Mixin)
+	- Page Settings Mixin (includes SEO & scripts)
+
+
+
+### Content Node Structure
+The node structure 
+
+Site Container
+ - Website (contains hostname)
+   - Home
+   - Eror404
+ - Data Repositories	
+	
+Data repositories are a common way to store partial content/elements which need to be referenced across your website. 
+For example:
+- Taxonomies 
+   - Categories 
+   - News Tags 
+   - Global Tags 	 
+- Locations 
+- Authors 
+- External Links 
+
 
 
 ## Umbraco Packages (TBD)

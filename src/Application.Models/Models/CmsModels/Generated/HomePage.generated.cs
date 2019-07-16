@@ -20,26 +20,26 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Application.Models.Models.CmsModels
 {
-	/// <summary>Home</summary>
-	[PublishedModel("home")]
-	public partial class Home : BasePage
+	/// <summary>Home Page</summary>
+	[PublishedModel("homePage")]
+	public partial class HomePage : BasePage
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
-		public new const string ModelTypeAlias = "home";
+		public new const string ModelTypeAlias = "homePage";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		public new static IPublishedContentType GetModelContentType()
 			=> PublishedModelUtility.GetModelContentType(ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Home, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HomePage, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 #pragma warning restore 0109
 
 		// ctor
-		public Home(IPublishedContent content)
+		public HomePage(IPublishedContent content)
 			: base(content)
 		{ }
 

@@ -28,13 +28,13 @@ namespace Application.Core.Services.CachedProxies
         /// </summary>
         /// <param name="nodeId"></param>
         /// <returns></returns>
-        public SiteRoot GetSiteNode(int nodeId)
+        public Site GetSiteNode(int nodeId)
         {
-            var cacheKey = CacheKey.Build<CmsServiceCachedProxy, Dictionary<int, SiteRoot>>("-1");
+            var cacheKey = CacheKey.Build<CmsServiceCachedProxy, Dictionary<int, Site>>("-1");
 
-            var sites = _cache.Get<Dictionary<int, SiteRoot>>(cacheKey);
+            var sites = _cache.Get<Dictionary<int, Site>>(cacheKey);
 
-            SiteRoot siteNode;
+            Site siteNode;
 
             if (sites != null)
             {
@@ -54,7 +54,7 @@ namespace Application.Core.Services.CachedProxies
             }
 
             // get here if there were no cached Site nodes, OR the Site node was not found in the dictionary
-            sites = new Dictionary<int, SiteRoot>();
+            sites = new Dictionary<int, Site>();
             siteNode = _cmsService.GetSiteNode(nodeId);
 
             if (siteNode != null)
@@ -68,10 +68,10 @@ namespace Application.Core.Services.CachedProxies
             return siteNode;
         }
 
-        public Home GetHomeNode(int nodeId)
+        public HomePage GetHomeNode(int nodeId)
         {
             var siteNode = GetSiteNode(nodeId);
-            var cacheKey = CacheKey.Build<CmsServiceCachedProxy, Home>(siteNode.Id.ToString());
+            var cacheKey = CacheKey.Build<CmsServiceCachedProxy, HomePage>(siteNode.Id.ToString());
 
             return _cache.Get(cacheKey, () => _cmsService.GetHomeNode(siteNode.Id));
         }

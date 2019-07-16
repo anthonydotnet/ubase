@@ -369,17 +369,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\CmsModels\Generated\BasePage.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\ContentPage.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\ElementScriptSettings.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\ElementSeoSettings.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\ElementSiteSeoSettings.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\Error404.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\File.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\Folder.generated.cs" />
-    <Compile Include="Models\CmsModels\Generated\Home.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\HomePage.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\Image.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\Member.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\MixinPageSettings.generated.cs" />
-    <Compile Include="Models\CmsModels\Generated\SiteRoot.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\RepositoryContainer.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\Site.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\SiteContainer.generated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
