@@ -7,7 +7,7 @@ namespace Application.Core.Services
 {
     public interface ICmsService
     {
-        Site GetSiteNode(int nodeId);
+        SiteRoot GetSiteNode(int nodeId);
 
         HomePage GetHomeNode(int nodeId);
 
@@ -27,7 +27,7 @@ namespace Application.Core.Services
             _logger = logger;
         }
 
-        public Site GetSiteNode(int currentNodeId)
+        public SiteRoot GetSiteNode(int currentNodeId)
         {
             var node = _umbracoHelper.Content(currentNodeId);
             if (node == null)
@@ -36,7 +36,7 @@ namespace Application.Core.Services
                 return null;
             }
 
-            var siteNode = node.AncestorsOrSelf().SingleOrDefault(x => x.ContentType.Alias == Site.ModelTypeAlias) as Site;
+            var siteNode = node.AncestorsOrSelf().SingleOrDefault(x => x.ContentType.Alias == SiteRoot.ModelTypeAlias) as SiteRoot;
 
             if (siteNode == null)
             {

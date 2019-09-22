@@ -20,9 +20,9 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Application.Models.Models.CmsModels
 {
-	/// <summary>Home Page</summary>
+	/// <summary>HomePage</summary>
 	[PublishedModel("homePage")]
-	public partial class HomePage : BasePage
+	public partial class HomePage : PublishedContentModel, IMixinPageSettings
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -51,5 +51,12 @@ namespace Application.Models.Models.CmsModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		[ImplementPropertyType("title")]
 		public string Title => this.Value<string>("title");
+
+		///<summary>
+		/// Page Settings
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
+		[ImplementPropertyType("pageSettings")]
+		public IEnumerable<IPublishedElement> PageSettings => MixinPageSettings.GetPageSettings(this);
 	}
 }

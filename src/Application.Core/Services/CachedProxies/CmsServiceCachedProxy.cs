@@ -28,13 +28,13 @@ namespace Application.Core.Services.CachedProxies
         /// </summary>
         /// <param name="nodeId"></param>
         /// <returns></returns>
-        public Site GetSiteNode(int nodeId)
+        public SiteRoot GetSiteNode(int nodeId)
         {
-            var cacheKey = CacheKey.Build<CmsServiceCachedProxy, Dictionary<int, Site>>("-1");
+            var cacheKey = CacheKey.Build<CmsServiceCachedProxy, Dictionary<int, SiteRoot>>("-1");
 
-            var sites = _cache.Get<Dictionary<int, Site>>(cacheKey);
+            var sites = _cache.Get<Dictionary<int, SiteRoot>>(cacheKey);
 
-            Site siteNode;
+            SiteRoot siteNode;
 
             if (sites != null)
             {
@@ -54,7 +54,7 @@ namespace Application.Core.Services.CachedProxies
             }
 
             // get here if there were no cached Site nodes, OR the Site node was not found in the dictionary
-            sites = new Dictionary<int, Site>();
+            sites = new Dictionary<int, SiteRoot>();
             siteNode = _cmsService.GetSiteNode(nodeId);
 
             if (siteNode != null)

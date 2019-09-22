@@ -9,11 +9,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Application.Models</RootNamespace>
     <AssemblyName>Application.Models</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -352,24 +353,27 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Umbraco.Core, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.8.1.0\lib\net472\Umbraco.Core.dll</HintPath>
+      <HintPath>..\packages\UmbracoCms.Core.8.1.4\lib\net472\Umbraco.Core.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.Examine, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Web.8.1.0\lib\net472\Umbraco.Examine.dll</HintPath>
+      <HintPath>..\packages\UmbracoCms.Web.8.1.4\lib\net472\Umbraco.Examine.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.ModelsBuilder, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Umbraco.ModelsBuilder.8.1.0\lib\net472\Umbraco.ModelsBuilder.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.Web, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Web.8.1.0\lib\net472\Umbraco.Web.dll</HintPath>
+      <HintPath>..\packages\UmbracoCms.Web.8.1.4\lib\net472\Umbraco.Web.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.Web.UI, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Web.8.1.0\lib\net472\Umbraco.Web.UI.dll</HintPath>
+      <HintPath>..\packages\UmbracoCms.Web.8.1.4\lib\net472\Umbraco.Web.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\CmsModels\Generated\BasePage.generated.cs" />
-    <Compile Include="Models\CmsModels\Generated\ContentPage.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\Author.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\Authors.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\Categories.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\Category.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\DataRepositories.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\ElementScriptSettings.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\ElementSeoSettings.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\ElementSiteSeoSettings.generated.cs" />
@@ -380,9 +384,13 @@
     <Compile Include="Models\CmsModels\Generated\Image.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\Member.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\MixinPageSettings.generated.cs" />
-    <Compile Include="Models\CmsModels\Generated\RepositoryContainer.generated.cs" />
-    <Compile Include="Models\CmsModels\Generated\Site.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\NewsArticle.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\NewsLanding.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\SiteContainer.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\SiteRoot.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\Tag.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\Tags.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\Taxonomies.generated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
