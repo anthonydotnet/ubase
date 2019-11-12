@@ -1,6 +1,6 @@
 # ubase - What is it?
 A base Visual Studio solution for Umbraco 8.1+.  
-The solution is a SOLID foundation of common patterns, folder structures, and website features which are widely accepted as "best practice" in the Umbraco community. USync definitions in this solution provide a  
+The solution is a SOLID foundation of common patterns, folder structures, and website features which are widely accepted as "best practice" in the Umbraco community. USync definitions in this solution provide a foundation set of document types and datatypes. 
 
 Note: This is not meant to be a "starter kit" per se, nor is it meant to have a load of features which are toggled. 
 
