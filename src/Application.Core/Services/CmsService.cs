@@ -7,13 +7,11 @@ namespace Application.Core.Services
 {
     public interface ICmsService
     {
-        SiteRoot GetSiteNode(int nodeId);
+        SiteRoot GetSiteRoot(int nodeId);
 
-        HomePage GetHomeNode(int nodeId);
+        HomePage GetHomePage(int nodeId);
 
-        Error404 GetError404Node(int nodeId);
-
-        //TagContainer GetTagContainer(int currentNodeId);
+        Error404 GetError404(int nodeId);
     }
 
     public class CmsService : ICmsService
@@ -27,7 +25,7 @@ namespace Application.Core.Services
             _logger = logger;
         }
 
-        public SiteRoot GetSiteNode(int currentNodeId)
+        public SiteRoot GetSiteRoot(int currentNodeId)
         {
             var node = _umbracoHelper.Content(currentNodeId);
             if (node == null)
@@ -46,15 +44,15 @@ namespace Application.Core.Services
             return siteNode;
         }
 
-        public HomePage GetHomeNode(int currentNodeId)
+        public HomePage GetHomePage(int currentNodeId)
         {
-            var siteNode = GetSiteNode(currentNodeId);
+            var siteNode = GetSiteRoot(currentNodeId);
             return siteNode.Children<HomePage>().FirstOrDefault();
         }
 
-        public Error404 GetError404Node(int currentNodeId)
+        public Error404 GetError404(int currentNodeId)
         {
-            var homeNode = GetSiteNode(currentNodeId);
+            var homeNode = GetSiteRoot(currentNodeId);
             var notFoundNode = homeNode.Children<Error404>().FirstOrDefault();
 
             return notFoundNode;

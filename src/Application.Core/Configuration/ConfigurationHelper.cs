@@ -11,7 +11,7 @@ namespace Application.Core.Configuration
 
         public static bool IsServiceCacheEnabled()
         {
-            return ConfigurationManager.AppSettings["ServiceCache:Enabled"] == "true";
+            return ConfigurationManager.AppSettings["ServiceCache:Enabled"] == bool.TrueString.ToLower();
         }
     }
 }
