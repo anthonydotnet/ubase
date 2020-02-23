@@ -33,9 +33,9 @@
 
 @helper RenderChildren(IEnumerable<IPublishedContent> pages)
 {
-var filtered = pages.Where(x => x as IMixinPageSettings != null)
-                    .Cast<BasePage>()
-                    .Where(x => x.PageSettings != null)
+var filtered = pages.Where(x => x as IPageSettingsMixin != null)
+                    .Cast<IPageSettingsMixin>()
+                    .Where(x => x.PageSettings != null && x.PageSettings.GetElement("elementSeoSettings") != null)
                     .Where(x => !x.PageSettings.GetElement("elementSeoSettings").Value<bool>("hideFromSitemapXml"));
 
 foreach (var page in filtered)
