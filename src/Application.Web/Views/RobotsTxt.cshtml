@@ -14,7 +14,7 @@
 
 @functions {
     string GetOutputString(IPublishedElement siteSeoSettings){
-        if (siteSeoSettings.Value<bool>("disallowRobots"))
+        if (siteSeoSettings == null || siteSeoSettings.Value<bool>("disallowRobots"))
         {
             return  "User-agent: *\nDisallow: /";
         }
