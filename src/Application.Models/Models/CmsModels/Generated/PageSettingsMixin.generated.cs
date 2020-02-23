@@ -20,26 +20,35 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Application.Models.Models.CmsModels
 {
-	/// <summary>News Landing</summary>
-	[PublishedModel("newsLanding")]
-	public partial class NewsLanding : PublishedContentModel, IPageSettingsMixin
+	// Mixin Content Type with alias "pageSettingsMixin"
+	/// <summary>Page Settings Mixin</summary>
+	public partial interface IPageSettingsMixin : IPublishedContent
+	{
+		/// <summary>Page Settings</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
+		IEnumerable<IPublishedElement> PageSettings { get; }
+	}
+
+	/// <summary>Page Settings Mixin</summary>
+	[PublishedModel("pageSettingsMixin")]
+	public partial class PageSettingsMixin : PublishedContentModel, IPageSettingsMixin
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
-		public new const string ModelTypeAlias = "newsLanding";
+		public new const string ModelTypeAlias = "pageSettingsMixin";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		public new static IPublishedContentType GetModelContentType()
 			=> PublishedModelUtility.GetModelContentType(ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NewsLanding, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<PageSettingsMixin, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 #pragma warning restore 0109
 
 		// ctor
-		public NewsLanding(IPublishedContent content)
+		public PageSettingsMixin(IPublishedContent content)
 			: base(content)
 		{ }
 
@@ -50,6 +59,10 @@ namespace Application.Models.Models.CmsModels
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		[ImplementPropertyType("pageSettings")]
-		public IEnumerable<IPublishedElement> PageSettings => PageSettingsMixin.GetPageSettings(this);
+		public IEnumerable<IPublishedElement> PageSettings => GetPageSettings(this);
+
+		/// <summary>Static getter for Page Settings</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
+		public static IEnumerable<IPublishedElement> GetPageSettings(IPageSettingsMixin that) => that.Value<IEnumerable<IPublishedElement>>("pageSettings");
 	}
 }

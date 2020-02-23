@@ -22,7 +22,7 @@ namespace Application.Models.Models.CmsModels
 {
 	/// <summary>News Article</summary>
 	[PublishedModel("newsArticle")]
-	public partial class NewsArticle : PublishedContentModel, IMixinPageSettings
+	public partial class NewsArticle : PublishedContentModel, IPageSettingsMixin
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -50,6 +50,6 @@ namespace Application.Models.Models.CmsModels
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		[ImplementPropertyType("pageSettings")]
-		public IEnumerable<IPublishedElement> PageSettings => MixinPageSettings.GetPageSettings(this);
+		public IEnumerable<IPublishedElement> PageSettings => PageSettingsMixin.GetPageSettings(this);
 	}
 }

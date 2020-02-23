@@ -20,49 +20,49 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Application.Models.Models.CmsModels
 {
-	// Mixin Content Type with alias "mixinPageSettings"
-	/// <summary>Page Settings</summary>
-	public partial interface IMixinPageSettings : IPublishedContent
+	// Mixin Content Type with alias "contentMixin"
+	/// <summary>Content Mixin</summary>
+	public partial interface IContentMixin : IPublishedContent
 	{
-		/// <summary>Page Settings</summary>
+		/// <summary>Title</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
-		IEnumerable<IPublishedElement> PageSettings { get; }
+		string Title { get; }
 	}
 
-	/// <summary>Page Settings</summary>
-	[PublishedModel("mixinPageSettings")]
-	public partial class MixinPageSettings : PublishedContentModel, IMixinPageSettings
+	/// <summary>Content Mixin</summary>
+	[PublishedModel("contentMixin")]
+	public partial class ContentMixin : PublishedContentModel, IContentMixin
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
-		public new const string ModelTypeAlias = "mixinPageSettings";
+		public new const string ModelTypeAlias = "contentMixin";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		public new static IPublishedContentType GetModelContentType()
 			=> PublishedModelUtility.GetModelContentType(ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<MixinPageSettings, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<ContentMixin, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 #pragma warning restore 0109
 
 		// ctor
-		public MixinPageSettings(IPublishedContent content)
+		public ContentMixin(IPublishedContent content)
 			: base(content)
 		{ }
 
 		// properties
 
 		///<summary>
-		/// Page Settings
+		/// Title
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
-		[ImplementPropertyType("pageSettings")]
-		public IEnumerable<IPublishedElement> PageSettings => GetPageSettings(this);
+		[ImplementPropertyType("title")]
+		public string Title => GetTitle(this);
 
-		/// <summary>Static getter for Page Settings</summary>
+		/// <summary>Static getter for Title</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
-		public static IEnumerable<IPublishedElement> GetPageSettings(IMixinPageSettings that) => that.Value<IEnumerable<IPublishedElement>>("pageSettings");
+		public static string GetTitle(IContentMixin that) => that.Value<string>("title");
 	}
 }

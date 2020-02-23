@@ -376,6 +376,8 @@
     <Compile Include="Models\CmsModels\Generated\Authors.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\Categories.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\Category.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\ContentMixin.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\ContentPage.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\DataRepositories.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\ElementScriptSettings.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\ElementSeoSettings.generated.cs" />
@@ -386,14 +388,13 @@
     <Compile Include="Models\CmsModels\Generated\HomePage.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\Image.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\Member.generated.cs" />
-    <Compile Include="Models\CmsModels\Generated\MixinPageSettings.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\NewsArticle.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\NewsLanding.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\PageSettingsMixin.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\SiteContainer.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\SiteRoot.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\Tag.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\Tags.generated.cs" />
-    <Compile Include="Models\CmsModels\Generated\Taxonomies.generated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
