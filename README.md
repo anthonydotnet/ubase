@@ -10,6 +10,10 @@ Note: This is not meant to be a "starter kit" per se, nor is it meant to have a 
 3. Go to Settings section -> Usyc, then click Import
 4. Go to Content section, create Site Container - Other main nodes will be automatically created on Save & Publish.
 
+Note: If you get an error regarding roslyn, try reinstalling, and rebuilding.
+>update-package -reinstall Microsoft.CodeDom.Providers.DotNetCompilerPlatform
+
+
 
 # Base Functionality
 ## Visual Studio Structure
