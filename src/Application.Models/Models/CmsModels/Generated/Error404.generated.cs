@@ -46,11 +46,11 @@ namespace Application.Models.Models.CmsModels
 		// properties
 
 		///<summary>
-		/// Description
+		/// Body
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
-		[ImplementPropertyType("description")]
-		public IHtmlString Description => this.Value<IHtmlString>("description");
+		[ImplementPropertyType("body")]
+		public IHtmlString Body => this.Value<IHtmlString>("body");
 
 		///<summary>
 		/// Title

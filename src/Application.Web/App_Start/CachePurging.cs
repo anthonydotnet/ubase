@@ -1,30 +1,34 @@
-﻿using Application.Core.Services.CachedProxies;
-using DangEasy.Caching.MemoryCache;
+﻿using Umbraco.Core;
 using Umbraco.Core.Composing;
-using Umbraco.Web;
+using Application.Core.Services.CachedProxies;
+using DangEasy.Caching.MemoryCache;
 using Umbraco.Web.Cache;
+using Umbraco.Core.Cache;
 
 namespace Application.Web.App_Start
 {
-    public class CachePurgingComposer : ComponentComposer<CachePurging>
-    {
-    }
-
-
-    public class CachePurging : IComponent
+    public class CachePurgingComposer : IUserComposer
     {
         public void Compose(Composition composition)
         {
-            ContentCacheRefresher.CacheUpdated += ContentCacheRefresher_CacheUpdated;
+            composition.Components().Append<CachePurgingComponent>();
         }
+    }
 
-        private void ContentCacheRefresher_CacheUpdated(ContentCacheRefresher sender, Umbraco.Core.Cache.CacheRefresherEventArgs e)
+    public class CachePurgingComponent : IComponent
+    {
+        public void Compose(Composition composition)
         {
-            Cache.Instance.RemoveByPrefix(typeof(CmsServiceCachedProxy).ToString());
         }
 
         public void Initialize()
         {
+            ContentCacheRefresher.CacheUpdated += ContentCacheRefresher_CacheUpdated;
+        }
+
+        private void ContentCacheRefresher_CacheUpdated(ContentCacheRefresher sender, CacheRefresherEventArgs e)
+        {
+            Cache.Instance.RemoveByPrefix(typeof(CmsServiceCachedProxy).ToString());
         }
 
         public void Terminate()

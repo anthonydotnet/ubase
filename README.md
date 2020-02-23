@@ -7,8 +7,8 @@ Note: This is not meant to be a "starter kit" per se, nor is it meant to have a 
 # Setup Instructions
 1. Fork/copy this repository, then build in Visual Studio
 2. Run application and go through standard Umbraco setup WITHOUT a starter kit
-3. Go to Settings section -> usych, and click Import
-4. Go to Content section, create Root and Home nodes.
+3. Go to Settings section -> Usyc, then click Import
+4. Go to Content section, create Site Container - Other main nodes will be automatically created on Save & Publish.
 
 
 # Base Functionality
@@ -57,13 +57,11 @@ A base node structure is provided which allows flexibility, multi-websites and s
   - Data Repositories	
 	
 Note: Data repositories are a common way to store partial content/elements which need to be referenced across your website. 
-For example:
-- Taxonomies 
-   - Categories 
-   - News Tags 
-   - Global Tags 	 
-- Locations 
-- Authors 
+For example: 
+- Authors
+- Categories 
+- Tags  	 
+- Locations  
 - External Links 
 
 
