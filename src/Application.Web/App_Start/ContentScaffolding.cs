@@ -76,14 +76,21 @@ namespace Application.Web.App_Start
         private void CreatePages(IContentService contentService, IContent siteRoot)
         {
             // home 
-            var home = contentService.CreateAndSave("Home", siteRoot.Id, HomePage.ModelTypeAlias);
+            var home = contentService.CreateAndSave("Home", siteRoot.Id, Home.ModelTypeAlias);
+            home.SetValue("title", home.Name);
             siteRoot.SetValue("umbracoInternalRedirectId", home.GetUdi());
             contentService.Save(siteRoot, raiseEvents: false);
 
             // basic pages
-            contentService.CreateAndSave("Page Not Found", siteRoot.Id, Error404.ModelTypeAlias);
-            contentService.CreateAndSave("Terms And Conditions", siteRoot.Id, ContentPage.ModelTypeAlias);
+            var error404 = contentService.CreateAndSave("Page Not Found", siteRoot.Id, Error404.ModelTypeAlias);
+            error404.SetValue("title", error404.Name);
+            contentService.Save(error404, raiseEvents: false);
+
+            var terms = contentService.CreateAndSave("Terms And Conditions", siteRoot.Id, BasicContent.ModelTypeAlias);
+            terms.SetValue("title", terms.Name);
+            contentService.Save(terms, raiseEvents: false);
         }
+
 
         private void CreateRepositories(IContentService contentService, IContent siteContainer)
         {
