@@ -4,11 +4,11 @@ using Umbraco.Web.Models;
 
 namespace Application.Web.Controllers.Hijacks
 {
-    public class HomePageController : Umbraco.Web.Mvc.RenderMvcController
+    public class BasicContentController : Umbraco.Web.Mvc.RenderMvcController
     {
         private readonly ICmsService _cmsService;
 
-        public HomePageController(ICmsService cmsService)
+        public BasicContentController(ICmsService cmsService)
         {
             _cmsService = cmsService;
         }

@@ -9,7 +9,7 @@ namespace Application.Core.Services
     {
         SiteRoot GetSiteRoot(int nodeId);
 
-        HomePage GetHomePage(int nodeId);
+        Home GetHome(int nodeId);
 
         Error404 GetError404(int nodeId);
     }
@@ -44,10 +44,10 @@ namespace Application.Core.Services
             return siteNode;
         }
 
-        public HomePage GetHomePage(int currentNodeId)
+        public Home GetHome(int currentNodeId)
         {
             var siteNode = GetSiteRoot(currentNodeId);
-            return siteNode.Children<HomePage>().FirstOrDefault();
+            return siteNode.Children<Home>().FirstOrDefault();
         }
 
         public Error404 GetError404(int currentNodeId)

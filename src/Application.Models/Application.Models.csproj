@@ -374,10 +374,10 @@
   <ItemGroup>
     <Compile Include="Models\CmsModels\Generated\Author.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\Authors.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\BasicContent.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\Categories.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\Category.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\ContentMixin.generated.cs" />
-    <Compile Include="Models\CmsModels\Generated\ContentPage.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\DataRepositories.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\ElementScriptSettings.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\ElementSeoSettings.generated.cs" />
@@ -385,7 +385,7 @@
     <Compile Include="Models\CmsModels\Generated\Error404.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\File.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\Folder.generated.cs" />
-    <Compile Include="Models\CmsModels\Generated\HomePage.generated.cs" />
+    <Compile Include="Models\CmsModels\Generated\Home.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\Image.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\Member.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\NewsArticle.generated.cs" />

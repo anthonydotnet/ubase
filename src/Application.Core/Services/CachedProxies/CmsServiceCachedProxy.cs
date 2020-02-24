@@ -68,12 +68,12 @@ namespace Application.Core.Services.CachedProxies
             return siteNode;
         }
 
-        public HomePage GetHomePage(int nodeId)
+        public Home GetHome(int nodeId)
         {
             var siteNode = GetSiteRoot(nodeId);
-            var cacheKey = CacheKey.Build<CmsServiceCachedProxy, HomePage>(siteNode.Id.ToString());
+            var cacheKey = CacheKey.Build<CmsServiceCachedProxy, Home>(siteNode.Id.ToString());
 
-            return _cache.Get(cacheKey, () => _cmsService.GetHomePage(siteNode.Id));
+            return _cache.Get(cacheKey, () => _cmsService.GetHome(siteNode.Id));
         }
 
         public Error404 GetError404(int nodeId)

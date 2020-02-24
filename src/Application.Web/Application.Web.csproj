@@ -463,7 +463,9 @@
     <Compile Include="App_Start\Mapping.cs" />
     <Compile Include="App_Start\IoC.cs" />
     <Compile Include="App_Start\Routing\Routes.cs" />
-    <Compile Include="Controllers\Hijacks\HomePage.cs" />
+    <Compile Include="Controllers\Hijacks\Error404.cs" />
+    <Compile Include="Controllers\Hijacks\BasicContent.cs" />
+    <Compile Include="Controllers\Hijacks\Home.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestPages\CrashingPage.aspx.cs">
       <DependentUpon>CrashingPage.aspx</DependentUpon>
@@ -504,6 +506,7 @@
     <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
+    <Content Include="Views\BasicContent.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
