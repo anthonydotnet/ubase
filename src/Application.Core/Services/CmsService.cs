@@ -1,7 +1,9 @@
 ﻿using Application.Models.Models.CmsModels;
 using System.Linq;
 using Umbraco.Core.Logging;
+using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
+using Umbraco.Web.PublishedCache;
 
 namespace Application.Core.Services
 {
@@ -16,18 +18,24 @@ namespace Application.Core.Services
 
     public class CmsService : ICmsService
     {
-        private readonly UmbracoHelper _umbracoHelper;
+        private readonly IUmbracoContextFactory _umbracoContextFactory;
         private readonly ILogger _logger;
 
-        public CmsService(UmbracoHelper umbracoHelper, ILogger logger)
+        public CmsService(IUmbracoContextFactory umbracoContextFactory, ILogger logger)
         {
-            _umbracoHelper = umbracoHelper;
+            _umbracoContextFactory = umbracoContextFactory;
             _logger = logger;
         }
 
         public SiteRoot GetSiteRoot(int currentNodeId)
         {
-            var node = _umbracoHelper.Content(currentNodeId);
+            IPublishedContent node;
+            using (UmbracoContextReference umbContextRef = _umbracoContextFactory.EnsureUmbracoContext())
+            {
+                IPublishedContentCache contentCache = umbContextRef.UmbracoContext.Content;
+                node = umbContextRef.UmbracoContext.Content.GetById(currentNodeId);
+            }
+
             if (node == null)
             {
                 _logger.Warn<CmsService>($"1.Node with id {currentNodeId} is null");

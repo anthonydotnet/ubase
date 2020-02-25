@@ -3,6 +3,7 @@ using Application.Core.Services;
 using Application.Core.Services.CachedProxies;
 using DangEasy.Caching.MemoryCache;
 using Application.Core.Configuration;
+using Umbraco.Core;
 
 namespace Application.Web.App_Start
 {
@@ -14,7 +15,6 @@ namespace Application.Web.App_Start
             RegisterServices(composition);
             RegisterCachedServices(composition);
         }
-
 
         private static void RegisterBuilders(Composition composition)
         {
