@@ -4,7 +4,7 @@ using Umbraco.Core.Services;
 using Umbraco.Web.Routing;
 using Umbraco.Web;
 
-namespace Application.Web.App_Start.ContentFinders
+namespace Application.Web.App_Start.LastChanceContentFinders
 {
     public class Error404ContentFinderComposer : IUserComposer
     {

@@ -1,4 +1,4 @@
-﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\uSync.8.5.0\build\uSync.props" Condition="Exists('..\packages\uSync.8.5.0\build\uSync.props')" />
   <Import Project="..\packages\UmbracoCms.8.5.3\build\UmbracoCms.props" Condition="Exists('..\packages\UmbracoCms.8.5.3\build\UmbracoCms.props')" />
@@ -452,13 +452,14 @@
     <Content Include="config\Lang\sv-SE.user.xml" />
     <Content Include="config\Lang\zh-CN.user.xml" />
     <Content Include="config\logviewer.searches.config.js" />
+    <Content Include="ErrorPages\500.html" />
     <Content Include="Global.asax" />
     <Content Include="TestPages\CrashingPage.aspx" />
     <Content Include="TestPages\Index.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\ContentFinders\Error404LastChanceContentFinder.cs" />
+    <Compile Include="App_Start\LastChanceContentFinders\Error404LastChanceContentFinder.cs" />
     <Compile Include="App_Start\ContentScaffolding.cs" />
     <Compile Include="App_Start\CachePurging.cs" />
     <Compile Include="App_Start\Mapping.cs" />
