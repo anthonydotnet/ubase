@@ -34,10 +34,14 @@ namespace Application.Web.App_Start
 
                 composition.Register(typeof(CmsService), typeof(CmsService));
                 composition.Register(typeof(ICmsService), typeof(CmsServiceCachedProxy));
+
+                composition.Register(typeof(SitemapXmlGenerator), typeof(SitemapXmlGenerator));
+                composition.Register(typeof(ISitemapXmlGenerator), typeof(SitemapXmlGeneratorCachedProxy));
             }
             else
             {
                 composition.Register(typeof(ICmsService), typeof(CmsService));
+                composition.Register(typeof(ISitemapXmlGenerator), typeof(SitemapXmlGenerator));
             }
         }
     }

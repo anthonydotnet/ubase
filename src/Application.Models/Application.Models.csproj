@@ -395,6 +395,7 @@
     <Compile Include="Models\CmsModels\Generated\SiteRoot.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\Tag.generated.cs" />
     <Compile Include="Models\CmsModels\Generated\Tags.generated.cs" />
+    <Compile Include="Models\ViewModels\SitemapXmlItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -402,7 +403,6 @@
     <Folder Include="Models\Api\Response\" />
     <Folder Include="Models\CmsModels\Extended\" />
     <Folder Include="Models\DTOs\" />
-    <Folder Include="Models\ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
