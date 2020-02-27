@@ -4,19 +4,20 @@ using DangEasy.Interfaces.Caching;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 
 namespace Application.Core.Services.CachedProxies
 {
     public class CmsServiceCachedProxy : ICmsService
     {
-        private readonly UmbracoHelper _umbracoHelper;
+        private readonly IUmbracoContextFactory _umbracoContextFactory;
         private readonly ICmsService _cmsService;
         private readonly ICache _cache;
 
-        public CmsServiceCachedProxy(UmbracoHelper umbracoHelper, CmsService cmsService, ICache cache)
+        public CmsServiceCachedProxy(IUmbracoContextFactory umbracoContextFactory, CmsService cmsService, ICache cache)
         {
-            _umbracoHelper = umbracoHelper;
+            _umbracoContextFactory = umbracoContextFactory;
             _cmsService = cmsService;
             _cache = cache;
         }
@@ -39,7 +40,13 @@ namespace Application.Core.Services.CachedProxies
             if (sites != null)
             {
                 // Use the IDs in the Path property to get the Root node from the cached Dictionary.
-                var node = _umbracoHelper.Content(nodeId);
+                IPublishedContent node;
+                using (UmbracoContextReference umbContextRef = _umbracoContextFactory.EnsureUmbracoContext())
+                {
+                    var contentCache = umbContextRef.UmbracoContext.Content;
+                    node = umbContextRef.UmbracoContext.Content.GetById(nodeId);
+                }
+
                 var pathIds = node.Path.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(x => int.Parse(x));
 
                 foreach (var id in pathIds)
@@ -68,12 +75,12 @@ namespace Application.Core.Services.CachedProxies
             return siteNode;
         }
 
-        public HomePage GetHomePage(int nodeId)
+        public Home GetHome(int nodeId)
         {
             var siteNode = GetSiteRoot(nodeId);
-            var cacheKey = CacheKey.Build<CmsServiceCachedProxy, HomePage>(siteNode.Id.ToString());
+            var cacheKey = CacheKey.Build<CmsServiceCachedProxy, Home>(siteNode.Id.ToString());
 
-            return _cache.Get(cacheKey, () => _cmsService.GetHomePage(siteNode.Id));
+            return _cache.Get(cacheKey, () => _cmsService.GetHome(siteNode.Id));
         }
 
         public Error404 GetError404(int nodeId)
