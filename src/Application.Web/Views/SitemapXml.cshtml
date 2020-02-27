@@ -1,74 +1,15 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
-@using Application.Core.Extensions
-@using Application.Models.Models.CmsModels
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<List<Application.Web.Controllers.NonPage.SitemapXmlController.SitemapItem>>
 @{
-    /* All this code is ridiculous! */
-
     Layout = null;
-    var root = Model.AncestorOrSelf("siteRoot") as SiteRoot;
-    var home = Umbraco.Content(root.Value("umbracoInternalRedirectId"));
-
-    Response.ClearHeaders();
-    Response.ContentType = "text/xml";
-    //HttpContext.Current.Response.AddHeader("Content-Type", "text/xml; charset=utf-8");
 }<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://www.google.com/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-    @RenderItem(home, "")
-    @RenderChildren(root.Children().Where(x => x.Id != home.Id))
-</urlset>
-
-
-@helper RenderItem(IPublishedContent node, string defaultPath = null)
-{
-    var changeFreq = GetValueOrDefault(node, "seoFrequency", "monthly");
-    var priority = GetValueOrDefault(node, "seoPriority", "0.5");
-
-    <url>
-        <loc>@baseUrl@(defaultPath ?? node.UrlSegment())</loc>
-        <lastmod>@(string.Format("{0:s}+00:00", node.UpdateDate))</lastmod>
-        <changefreq>@changeFreq</changefreq>
-        <priority>@priority</priority>
-    </url>
-}
-
-
-@helper RenderChildren(IEnumerable<IPublishedContent> pages)
-{
-var filtered = pages.Where(x => x as IPageSettingsMixin != null)
-                    .Cast<IPageSettingsMixin>()
-                    .Where(x => x.PageSettings != null && x.PageSettings.GetElement("elementSeoSettings") != null)
-                    .Where(x => !x.PageSettings.GetElement("elementSeoSettings").Value<bool>("hideFromSitemapXml"));
-
-foreach (var page in filtered)
-{
-    @RenderItem(page)
-        @RenderChildren(page.Children)
-    }
-}
-
-@functions{
-    string baseUrl = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
-
-    string GetValueOrDefault(IPublishedContent node, string alias, string defaultValue)
+    @foreach (var item in Model)
     {
-        var settings = node.Value<IEnumerable<IPublishedElement>>("pageSettings");
+        <url>
+            <loc>@item.Url</loc>
+            <lastmod>@item.LastModified</lastmod>
+            <changefreq>@item.ChangeFreq</changefreq>
+            <priority>@item.Priority</priority>
+        </url>
 
-        string value;
-        if (settings != null)
-        {
-            var element = settings.FirstOrDefault(x => x.ContentType.Alias == "elementSeoSettings");
-
-            if (element == null) { return defaultValue; }
-            value = element.Value<string>(alias);
-            if (string.IsNullOrEmpty(value))
-            {
-                value = defaultValue;
-            }
-        }
-        else
-        {
-            value = defaultValue;
-        }
-
-        return value;
     }
-}
+</urlset>

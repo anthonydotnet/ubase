@@ -1,20 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Umbraco.Core.Models.PublishedContent;
+using Umbraco.Web;
 
 namespace Application.Core.Extensions
 {
     public static class IPublishedElementExtensions
     {
-        public static IPublishedElement GetElement(this IEnumerable<IPublishedElement> items, string alias)
+        public static IPublishedElement GetElement(this IEnumerable<IPublishedElement> items, string doctypeAlias)
         {
-            var element = items.FirstOrDefault(x => x.ContentType.Alias == alias);
+            var element = items.FirstOrDefault(x => x.ContentType.Alias == doctypeAlias);
 
             return element;
         }
 
+        public static T GetElementValue<T>(this IEnumerable<IPublishedElement> items, string doctypeAlias, string propertyAlias)
+        {
+            var element = items.FirstOrDefault(x => x.ContentType.Alias == doctypeAlias);
+
+            if(element != null)
+            {
+                var value = element.Value<T>(propertyAlias);
+
+                return value;
+            }
+
+            return default;
+        }
     }
 }
