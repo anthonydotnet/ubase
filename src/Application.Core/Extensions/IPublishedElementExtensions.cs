@@ -27,5 +27,20 @@ namespace Application.Core.Extensions
 
             return default;
         }
+
+
+        public static object Value(this IEnumerable<IPublishedElement> items, string doctypeAlias, string propertyAlias)
+        {
+            var element = items.FirstOrDefault(x => x.ContentType.Alias == doctypeAlias);
+
+            if (element != null)
+            {
+                var value = element.Value(propertyAlias);
+
+                return value;
+            }
+
+            return default;
+        }
     }
 }
