@@ -6,7 +6,7 @@ using Umbraco.Web.Mvc;
 using Umbraco.Web;
 using Application.Core.Extensions;
 
-namespace Application.Web.Controllers.ViewLess
+namespace Application.Web.Controllers.NonPage
 {
     public class RobotsTxtController : RenderMvcController
     {

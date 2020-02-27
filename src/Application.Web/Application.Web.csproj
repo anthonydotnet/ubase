@@ -1,4 +1,4 @@
-﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\uSync.8.5.0\build\uSync.props" Condition="Exists('..\packages\uSync.8.5.0\build\uSync.props')" />
   <Import Project="..\packages\UmbracoCms.8.5.3\build\UmbracoCms.props" Condition="Exists('..\packages\UmbracoCms.8.5.3\build\UmbracoCms.props')" />
@@ -472,7 +472,7 @@
     <Compile Include="Controllers\Hijacks\Error404Controller.cs" />
     <Compile Include="Controllers\Hijacks\BasicContentController.cs" />
     <Compile Include="Controllers\Hijacks\HomeController.cs" />
-    <Compile Include="Controllers\ViewLess\RobotsTxtController.cs" />
+    <Compile Include="Controllers\NonPage\RobotsTxtController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestPages\CrashingPage.aspx.cs">
       <DependentUpon>CrashingPage.aspx</DependentUpon>
