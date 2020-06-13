@@ -1,6 +1,15 @@
 ﻿<div ng-controller="uSync8Controller as vm">
 
-    <umb-box>
+    <div ng-if="vm.versionInfo.IsCurrent != true" class="alert alert-info usync-alert">
+        <localize key="usync_newer"></localize> [v{{vm.versionInfo.VersionInfo.Core}}]
+        <span ng-if="vm.versionInfo.VersionInfo.Message">
+            <a href="{{vm.versionInfo.VersionInfo.Link}}" target="_blank">
+                {{vm.versionInfo.VersionInfo.Message}}
+            </a>
+        </span>
+    </div>
+
+    <umb-box ng-if="!vm.loading">
         <umb-box-content>
             <div class="flex justify-between items-center">
                 <div class="usync-main-buttons">
@@ -22,12 +31,14 @@
                                       state="vm.importButton.state">
                     </umb-button-group>
 
-                    <umb-button type="button"
-                                button-style="info"
-                                label-key="usync_export"
-                                action="vm.exportItems()"
-                                disabled="vm.working">
-                    </umb-button>
+
+                    <umb-button-group default-button="vm.exportButton.defaultButton"
+                                      sub-buttons="vm.exportButton.subButtons"
+                                      direction="down"
+                                      float="left"
+                                      button-style="info"
+                                      state="vm.exportButton.state">
+                    </umb-button-group>
 
                 </div>
 
@@ -49,10 +60,10 @@
     </umb-box>
 
     <div ng-if="vm.reported">
-        <usync-report-view actions="vm.actions" 
-                           results="vm.results" 
+        <usync-report-view actions="vm.actions"
+                           results="vm.results"
                            hide-action="true"
-                           hide-link="vm.hideLink"/>
+                           hide-link="vm.hideLink" />
     </div>
 
 </div>

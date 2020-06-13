@@ -28,7 +28,9 @@
             getAddOns: getAddOns,
             getAddOnSplash: getAddOnSplash,
 
-            getHandlerGroups: getHandlerGroups
+            getHandlerGroups: getHandlerGroups,
+
+            checkVersion: checkVersion
         };
 
         return service;
@@ -60,8 +62,8 @@
             return $http.post(serviceRoot + 'report', { clientId: clientId, group: group });
         }
 
-        function exportItems (clientId) {
-            return $http.post(serviceRoot + 'export', { clientId: clientId });
+        function exportItems (clientId, clean) {
+            return $http.post(serviceRoot + 'export', { clientId: clientId, clean: clean });
         }
 
         function importItems(force, group, clientId) {
@@ -83,6 +85,10 @@
 
         function getHandlerGroups() {
             return $http.get(serviceRoot + 'GetHandlerGroups');
+        }
+
+        function checkVersion() {
+            return $http.get(serviceRoot + 'CheckVersion');
         }
     }
 
