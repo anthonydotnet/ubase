@@ -16,6 +16,14 @@
                         <div ng-if="vm.item.DetailMessage.length > 0" class="usync-item-detail-message">
                             <div ng-bind-html="vm.item.DetailMessage"></div>
                         </div>
+
+                        <div ng-if="vm.item.Change == 'Create'" class="alert alert-success">
+                            <h4>Create</h4>
+                            <p>
+                                This item doesn't currently exist, and will be created on import.
+                            </p>
+                        </div>
+
                         <div ng-if="vm.item.Details.length > 0">
                             <h5>Detected changes</h5>
                             <div class="usync-item-details">
@@ -30,7 +38,7 @@
                                     </div>
                                     <div class="umb-table-body">
                                         <div ng-repeat="detail in vm.item.Details" class="umb-table-row"
-                                             ng-class="{'usync-row-delete': detail.Change == 'Delete', 'usync-row-create' : detail.Change == 'Create'}">
+                                             ng-class="{'usync-row-delete': detail.Change == 'Delete', 'usync-row-create' : detail.Change == 'Create', 'usync-row-warn' : !detail.Success }">
                                             <div class="umb-table-cell">
                                                 <i ng-if="detail.Change == 'Create'" class="icon icon-add color-green"></i>
                                                 <i ng-if="detail.Change == 'NoChange'" class="icon icon-check color-green"></i>
@@ -58,13 +66,6 @@
                                 It is possible that the .config file is different, because it contains extra information
                                 (such as xml comments) but no properties or values on this item will change when the file
                                 is processed.
-                            </p>
-                        </div>
-
-                        <div ng-if="vm.item.Change == 'Create'" class="alert alert-success">
-                            <h4>Create</h4>
-                            <p>
-                                This item doesn't currently exist, and will be created on import.
                             </p>
                         </div>
                     </umb-box-content>

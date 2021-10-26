@@ -30,6 +30,17 @@
     margin: 0 0 20px;
 }
 
+ul.usync-action-list {
+    display: inline-block;
+    margin:0;
+    padding:0;
+}
+
+    ul.usync-action-list li {
+        display: inline;
+        margin-right: 4px;
+    }
+
 .usync-action-message-step {
     margin: 0 0 20px;
     font-weight: 700;
@@ -87,6 +98,10 @@
     background-color: #E8F5E9;
 }
 
+.usync-row-warn {
+    background-color: #FFFDE7 !important;
+}
+
 .usync-handler-icon {
     padding: 0.75em;
     margin-right: 14px;
@@ -111,6 +126,10 @@
     .usync-handler-icon .badge.type-complete {
         background-color: #27b171;
     }
+
+        .usync-handler-icon .badge.type-complete.badge-error {
+            background-color: #ff5722;
+        }
 
     .usync-handler-icon .handler-badge i {
         font-size: 16px;
@@ -356,6 +375,7 @@
 
 .usync-report-no-changes {
     margin: 50px 0;
+    text-align: center;
 }
 .usync-report-no-changes h4 {
     font-weight: 700;
@@ -385,4 +405,8 @@
 
 .usync-change-row-Fail {
     background-color: #FFEBEE;
+}
+
+.usync-change-row-Warn {
+    background-color: #FFFDE7;
 }
