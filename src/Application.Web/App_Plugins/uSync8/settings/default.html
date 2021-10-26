@@ -1,5 +1,6 @@
 ﻿<div ng-controller="uSync8Controller as vm">
 
+
     <div ng-if="vm.versionInfo.IsCurrent != true" class="alert alert-info usync-alert">
         <localize key="usync_newer"></localize> [v{{vm.versionInfo.VersionInfo.Core}}]
         <span ng-if="vm.versionInfo.VersionInfo.Message">
@@ -9,7 +10,14 @@
         </span>
     </div>
 
+    <div ng-if="vm.isLoadbalanced == true" class="alert alert-danger usync-alert">
+        <localize key="usync_loadbalancedWarning"></localize>
+    </div>
     <umb-box ng-if="!vm.loading">
+        <div ng-if="vm.versionInfo.HandlersLoaded != undefined && vm.versionInfo.HandlersLoaded != true" class="alert alert-danger usync-alert">
+            <localize key="usync_noHandlers"></localize>
+        </div>
+
         <umb-box-content>
             <div class="flex justify-between items-center">
                 <div class="usync-main-buttons">
@@ -48,22 +56,42 @@
                     </div>
                 </div>
             </div>
+
         </umb-box-content>
     </umb-box>
 
-    <umb-box>
-        <umb-box-content ng-if="vm.working || vm.reported">
+    <div ng-if="vm.canHaveForms && !vm.reported && !vm.working" class="flex justify-center">
+        <localize key="usync_forms"></localize>
+    </div>
+
+    <umb-box ng-if="!vm.showSpinner && (vm.working || vm.reported)">
+        <umb-box-content>
             <usync-progress-view update="vm.update"
                                  status="vm.status"
-                                 hide-labels="false" />
+                                 hide-labels="false">
+            </usync-progress-view>
+            <div ng-if="vm.perf > 0" class="text-center muted">{{vm.perf | number: 0 }}ms</div>
         </umb-box-content>
     </umb-box>
+
+    <div ng-if="vm.showSpinner && vm.working">
+        <umb-load-indicator></umb-load-indicator>
+    </div>
+
+
+    <div ng-if="vm.warnings.Message.length > 0" class="alert alert-{{vm.warnings.Type}}">
+        <span ng-bind-html="vm.warnings.Message"></span>
+
+    </div>
+
+
 
     <div ng-if="vm.reported">
         <usync-report-view actions="vm.actions"
                            results="vm.results"
                            hide-action="true"
-                           hide-link="vm.hideLink" />
+                           hide-link="vm.hideLink">
+        </usync-report-view>
     </div>
 
 </div>
