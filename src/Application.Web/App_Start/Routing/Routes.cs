@@ -1,13 +1,13 @@
-﻿using Umbraco.Core;
-using Umbraco.Core.Composing;
+﻿using Umbraco.Cms.Core.Composing;
+using Umbraco.Cms.Core.DependencyInjection;
 
 namespace Application.Web.App_Start.Routing
 {
-    public class RouteComposer : IUserComposer
+    public class RouteComposer : IComposer
     {
-        public void Compose(Composition composition)
+        public void Compose(IUmbracoBuilder builder)
         {
-            composition.Components().Insert<RouteComponent>();
+            builder.Components().Append<RouteComponent>();
         }
     }
 

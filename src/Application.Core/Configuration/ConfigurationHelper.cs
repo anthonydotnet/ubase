@@ -1,17 +1,32 @@
-﻿using System.Configuration;
+﻿using Microsoft.Extensions.Configuration;
+using System.Configuration;
 
 namespace Application.Core.Configuration
 {
-    public static class ConfigurationHelper
+    public interface IConfigurationHelper
     {
-        public static string GetValue(string key)
+        T GetValue<T>(string key);
+
+    }
+
+
+    public class ConfigurationHelper: IConfigurationHelper
+    {
+        private readonly IConfiguration _config;
+
+        public ConfigurationHelper(IConfiguration config)
         {
-            return ConfigurationManager.AppSettings[key];
+            _config = config;
         }
 
-        public static bool IsServiceCacheEnabled()
+        public T GetValue<T>(string key)
         {
-            return ConfigurationManager.AppSettings["ServiceCache:Enabled"] == bool.TrueString.ToLower();
+            return _config.GetValue<T>(key);
         }
+
+        //public bool IsServiceCacheEnabled()
+        //{
+        //    return ConfigurationManager.AppSettings["ServiceCache:Enabled"] == bool.TrueString.ToLower();
+        //}
     }
 }

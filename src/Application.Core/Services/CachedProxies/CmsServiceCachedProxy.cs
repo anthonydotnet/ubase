@@ -1,11 +1,12 @@
-﻿using Application.Models.Models.CmsModels;
+﻿using Application.Models.CmsModels;
 using DangEasy.Caching.MemoryCache;
 using DangEasy.Interfaces.Caching;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Web;
+using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.Models.PublishedContent;
+using Umbraco.Cms.Core.Web;
 
 namespace Application.Core.Services.CachedProxies
 {

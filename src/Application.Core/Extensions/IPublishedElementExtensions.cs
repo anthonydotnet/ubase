@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Web;
+using Umbraco.Cms.Core.Models.PublishedContent;
+using Umbraco.Extensions;
 
 namespace Application.Core.Extensions
 {
@@ -20,9 +20,9 @@ namespace Application.Core.Extensions
 
             if(element != null)
             {
-                var value = element.Value<T>(propertyAlias);
+                var value = element.GetProperty(propertyAlias).Value(default);
 
-                return value;
+                return (T)value;
             }
 
             return default;
@@ -35,7 +35,7 @@ namespace Application.Core.Extensions
 
             if (element != null)
             {
-                var value = element.Value(propertyAlias);
+                var value = element.GetProperty(propertyAlias).Value(default);
 
                 return value;
             }

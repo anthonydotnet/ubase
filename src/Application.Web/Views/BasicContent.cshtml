@@ -1,4 +1,7 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.BasicContent>
-@using ContentModels = Application.Models.Models.CmsModels;
-
-@Model.Title
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.BasicContent>
+@using ContentModels = Application.Models.CmsModels;
+@{
+	Layout = "BaseLayout.cshtml";
+}
+@Model.Value("title")

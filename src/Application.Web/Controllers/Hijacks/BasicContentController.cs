@@ -1,22 +1,25 @@
-﻿using Application.Core.Services;
-using System.Web.Mvc;
-using Umbraco.Web.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
+using Microsoft.Extensions.Logging;
+using Umbraco.Cms.Core.Web;
+using Umbraco.Cms.Web.Common.Controllers;
 
 namespace Application.Web.Controllers.Hijacks
 {
-    public class BasicContentController : Umbraco.Web.Mvc.RenderMvcController
+    public class BasicContentController : RenderController
     {
-        private readonly ICmsService _cmsService;
-
-        public BasicContentController(ICmsService cmsService)
+        public BasicContentController(ILogger<BasicContentController> logger, ICompositeViewEngine compositeViewEngine, IUmbracoContextAccessor umbracoContextAccessor)
+           : base(logger, compositeViewEngine, umbracoContextAccessor)
         {
-            _cmsService = cmsService;
         }
 
-        public override ActionResult Index(ContentModel model)
+
+        public override IActionResult Index()
         {
-            // Do some stuff here
-            return base.Index(model);
+            // you are in control here!
+
+            // return a 'model' to the selected template/view for this page.
+            return CurrentTemplate(CurrentPage);
         }
     }
 }

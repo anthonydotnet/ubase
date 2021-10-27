@@ -1,5 +1,9 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.NewsLanding>
-@using ContentModels = Application.Models.Models.CmsModels;
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.NewsLanding>
+@using ContentModels = Application.Models.CmsModels;
 @{
-	Layout = null;
+	Layout = "BaseLayout.cshtml";
 }
+@Model.Value("title")
+@Model.Value("body")
+

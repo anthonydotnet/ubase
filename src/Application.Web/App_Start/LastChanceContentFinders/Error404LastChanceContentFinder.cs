@@ -1,17 +1,18 @@
-﻿using Application.Core.Services;
-using Umbraco.Core.Composing;
-using Umbraco.Core.Services;
-using Umbraco.Web.Routing;
-using Umbraco.Web;
+﻿using Umbraco.Cms.Core.DependencyInjection;
+using Umbraco.Cms.Core.Composing;
+using Umbraco.Cms.Core.Services;
+using Umbraco.Cms.Core.Routing;
+using Umbraco.Extensions;
+using Application.Core.Services;
 
 namespace Application.Web.App_Start.LastChanceContentFinders
 {
-    public class Error404ContentFinderComposer : IUserComposer
+    [ComposeAfter(typeof(IoCComposer))]
+    public class Error404ContentFinderComposer : IComposer
     {
-        public void Compose(Composition composition)
+        public void Compose(IUmbracoBuilder builder)
         {
-            //set the last chance content finder
-            composition.SetContentLastChanceFinder<Error404LastChanceContentFinder>();
+            builder.SetContentLastChanceFinder<Error404LastChanceContentFinder>();
         }
     }
 
@@ -26,7 +27,7 @@ namespace Application.Web.App_Start.LastChanceContentFinders
             _cmsService = cmsService;
         }
 
-        public bool TryFindContent(PublishedRequest contentRequest)
+        public bool TryFindContent(IPublishedRequestBuilder contentRequest)
         {
             var uriAuthority = contentRequest.Uri.Authority;
             var domain = _domainService.GetByName(uriAuthority);
@@ -35,7 +36,7 @@ namespace Application.Web.App_Start.LastChanceContentFinders
 
             if (notFoundNode != null)
             {
-                contentRequest.PublishedContent = notFoundNode;
+                contentRequest.SetPublishedContent(notFoundNode);
             }
 
             // return true or false depending on whether our custom 404 page was found

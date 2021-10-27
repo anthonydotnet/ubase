@@ -1,9 +1,10 @@
-﻿using Application.Models.Models.CmsModels;
+﻿using Application.Models.CmsModels;
 using System.Linq;
-using Umbraco.Core.Logging;
-using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Web;
-using Umbraco.Web.PublishedCache;
+using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.Models.PublishedContent;
+using Umbraco.Cms.Core.PublishedCache;
+using Umbraco.Cms.Core.Web;
+using Umbraco.Extensions;
 
 namespace Application.Core.Services
 {
@@ -19,12 +20,10 @@ namespace Application.Core.Services
     public class CmsService : ICmsService
     {
         private readonly IUmbracoContextFactory _umbracoContextFactory;
-        private readonly ILogger _logger;
 
-        public CmsService(IUmbracoContextFactory umbracoContextFactory, ILogger logger)
+        public CmsService(IUmbracoContextFactory umbracoContextFactory)
         {
             _umbracoContextFactory = umbracoContextFactory;
-            _logger = logger;
         }
 
         public SiteRoot GetSiteRoot(int currentNodeId)
@@ -38,15 +37,14 @@ namespace Application.Core.Services
 
             if (node == null)
             {
-                _logger.Warn<CmsService>($"1.Node with id {currentNodeId} is null");
-                return null;
+                throw new System.Exception($"Node with id {currentNodeId} is null.");
             }
 
             var siteNode = node.AncestorsOrSelf().SingleOrDefault(x => x.ContentType.Alias == SiteRoot.ModelTypeAlias) as SiteRoot;
 
             if (siteNode == null)
             {
-                _logger.Warn<CmsService>("siteNode is null");
+                throw new System.Exception($"Site Node was not found.");
             }
 
             return siteNode;
@@ -55,15 +53,17 @@ namespace Application.Core.Services
         public Home GetHome(int currentNodeId)
         {
             var siteNode = GetSiteRoot(currentNodeId);
-            return siteNode.Children<Home>().FirstOrDefault();
+            var home = siteNode.Children.FirstOrDefault();
+
+            return home as Home;
         }
 
         public Error404 GetError404(int currentNodeId)
         {
             var homeNode = GetSiteRoot(currentNodeId);
-            var notFoundNode = homeNode.Children<Error404>().FirstOrDefault();
+            var notFoundNode = homeNode.Children.FirstOrDefault();
 
-            return notFoundNode;
+            return notFoundNode as Error404;
         }
     }
 }

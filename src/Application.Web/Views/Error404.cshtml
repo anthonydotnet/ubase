@@ -1,4 +1,8 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Application.Models.Models.CmsModels.Error404>
-
-@Model.Title
-@Model.Body 
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Error404>
+@using ContentModels = Application.Models.CmsModels;
+@{
+	Layout = "BaseLayout.cshtml";
+}
+@Model.Value("title")
+@Model.Value("body")

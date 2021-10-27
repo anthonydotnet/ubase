@@ -1,11 +1,9 @@
-﻿using Application.Models.Models.CmsModels;
+﻿using Application.Models.CmsModels;
 using Application.Models.Models.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
-using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Web;
 using Application.Core.Extensions;
-using Umbraco.Core;
+using Umbraco.Cms.Core.Models.PublishedContent;
 
 namespace Application.Core.Services
 {
@@ -31,7 +29,7 @@ namespace Application.Core.Services
             var home = _cmsService.GetHome(nodeId);
 
             sitemapItems = ProcessSitemapItems(baseUrl, sitemapItems, new List<IPublishedContent>() { home });
-            sitemapItems = ProcessSitemapItems(baseUrl, sitemapItems, siteRoot.Children().Where(x => x.Id != home.Id));
+            sitemapItems = ProcessSitemapItems(baseUrl, sitemapItems, siteRoot.Children.Where(x => x.Id != home.Id));
 
             return sitemapItems;
         }

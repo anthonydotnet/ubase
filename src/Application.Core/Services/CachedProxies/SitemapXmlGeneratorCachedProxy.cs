@@ -1,5 +1,4 @@
-﻿using Application.Models.Models.CmsModels;
-using Application.Models.Models.ViewModels;
+﻿using Application.Models.Models.ViewModels;
 using DangEasy.Caching.MemoryCache;
 using DangEasy.Interfaces.Caching;
 using System.Collections.Generic;

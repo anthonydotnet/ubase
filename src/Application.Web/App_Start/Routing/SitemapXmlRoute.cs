@@ -1,16 +1,18 @@
-﻿using System.Web.Routing;
+﻿using Umbraco.Cms.Core.Composing;
+using Umbraco.Cms.Core.DependencyInjection;
+using Umbraco.Cms.Core.Web;
+using System.Web.Routing;
 using Umbraco.Core;
-using Umbraco.Core.Composing;
-using Umbraco.Web;
+using Umbraco.Cms.Web;
 using Our.Umbraco.Extensions.Routing;
 
 namespace Application.Web.App_Start.Routing
 {
-    public class SitemapXmlRouteComposer : IUserComposer
+    public class SitemapXmlRouteComposer : IComposer
     {
-        public void Compose(Composition composition)
+        public void Compose(IUmbracoBuilder builder)
         {
-            composition.Components().Insert<SitemapXmlRouteComponent>();
+            builder.Components().Append<SitemapXmlRouteComponent>();
         }
     }
 
