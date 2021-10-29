@@ -5,17 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Services\CachedProxies\SitemapXmlGeneratorCachedProxy.cs" />
-    <Compile Remove="Services\SitemapXmlGenerator.cs" />
+    <Compile Remove="Services\CachedProxies\DomainFinderCachedProxy.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DangEasy.Caching.MemoryCache" Version="2.1.0" />
     <PackageReference Include="Umbraco.Cms.Core" Version="9.0.1" />
+    <PackageReference Include="Umbraco.Cms.Web.Common" Version="9.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Application.Models\Application.Models.csproj" />
+    <ProjectReference Include="..\Our.Umbraco.DomainFinder\Our.Umbraco.DomainFinder.csproj" />
   </ItemGroup>
 
 </Project>

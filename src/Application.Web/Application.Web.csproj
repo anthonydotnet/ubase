@@ -35,16 +35,11 @@
     <ItemGroup>
       <Compile Remove="App_Start\CachePurging.cs" />
       <Compile Remove="App_Start\IoC.cs" />
-      <Compile Remove="App_Start\Routing\RobotsTxtRoute.cs" />
-      <Compile Remove="App_Start\Routing\SitemapXmlRoute.cs" />
-      <Compile Remove="Controllers\NonPage\RobotsTxtController.cs" />
-      <Compile Remove="Controllers\NonPage\SitemapXmlController.cs" />
     </ItemGroup>
 
 
 
     <ItemGroup>
-      <Folder Include="Controllers\NonPage\" />
       <Folder Include="umbraco\models\" />
     </ItemGroup>
 

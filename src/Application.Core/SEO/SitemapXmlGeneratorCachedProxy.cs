@@ -2,6 +2,7 @@
 using DangEasy.Caching.MemoryCache;
 using DangEasy.Interfaces.Caching;
 using System.Collections.Generic;
+using Umbraco.Cms.Core.Routing;
 
 namespace Application.Core.Services.CachedProxies
 {
@@ -16,11 +17,11 @@ namespace Application.Core.Services.CachedProxies
             _cache = cache;
         }
 
-        public List<SitemapXmlItem> GetSitemap(int nodeId, string baseUrl)
+        public string GetSitemap(Domain domain, string baseUrl)
         {
-            var cacheKey = CacheKey.Build<CmsServiceCachedProxy, List<SitemapXmlItem>>(nodeId.ToString());
+            var cacheKey = CacheKey.Build<CmsServiceCachedProxy, List<SitemapXmlItem>>(domain.ContentId.ToString());
 
-            return _cache.Get(cacheKey, () => _sitemapXmlGenerator.GetSitemap(nodeId, baseUrl));
+            return _cache.Get(cacheKey, () => _sitemapXmlGenerator.GetSitemap(domain, baseUrl));
         }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.Composing;
-using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Routing;
 using Umbraco.Extensions;
 using Application.Core.Services;
+using Application.Core.App_Start;
+using Our.Umbraco.DomainFinder;
 
 namespace Application.Web.App_Start.LastChanceContentFinders
 {
@@ -18,21 +19,20 @@ namespace Application.Web.App_Start.LastChanceContentFinders
 
     public class Error404LastChanceContentFinder : IContentLastChanceFinder
     {
-        private readonly IDomainService _domainService;
         private readonly ICmsService _cmsService;
+        private readonly IDomainFinder _domainFinder;
 
-        public Error404LastChanceContentFinder(IDomainService domainService, ICmsService cmsService)
+        public Error404LastChanceContentFinder(ICmsService cmsService, IDomainFinder domainFinder)
         {
-            _domainService = domainService;
             _cmsService = cmsService;
+            _domainFinder = domainFinder;
         }
 
         public bool TryFindContent(IPublishedRequestBuilder contentRequest)
         {
-            var uriAuthority = contentRequest.Uri.Authority;
-            var domain = _domainService.GetByName(uriAuthority);
+            var domain = _domainFinder.GetDomain(contentRequest.Uri);
 
-            var notFoundNode = _cmsService.GetError404(domain.RootContentId.Value);
+            var notFoundNode = _cmsService.GetError404(domain.ContentId);
 
             if (notFoundNode != null)
             {

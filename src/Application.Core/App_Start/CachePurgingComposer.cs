@@ -1,18 +1,21 @@
 ﻿using Application.Core.Services.CachedProxies;
-using DangEasy.Caching.MemoryCache;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.Notifications;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.Events;
 using DangEasy.Interfaces.Caching;
+using Microsoft.Extensions.Configuration;
 
-namespace Application.Web.App_Start
+namespace Application.Core.App_Start
 {
     public class CachePurgingComposer : IComposer
     {
         public void Compose(IUmbracoBuilder builder)
         {
-            builder.AddNotificationHandler<ContentCacheRefresherNotification, CachePurgingNotificationHandler>();
+            if (builder.Config.GetValue<bool>("Cache:ServiceCacheEnabled"))
+            {
+                builder.AddNotificationHandler<ContentCacheRefresherNotification, CachePurgingNotificationHandler>();
+            }
         }
     }
 

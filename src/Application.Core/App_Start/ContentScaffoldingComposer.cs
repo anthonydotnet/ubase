@@ -9,7 +9,7 @@ using Umbraco.Cms.Core.Composing;
 using Microsoft.AspNetCore.Http;
 using Application.Models.CmsModels;
 
-namespace Application.Web.App_Start
+namespace Application.Core.App_Start
 {
     public class ContentScaffoldingComposer : IComposer
     {

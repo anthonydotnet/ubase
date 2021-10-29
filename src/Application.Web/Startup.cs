@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -55,6 +56,10 @@ namespace Application.Web
         /// <param name="env">The web hosting environment.</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //var options = new RewriteOptions().AddRewrite("robots.txt", "robotstxt", true);
+            //app.UseRewriter(options);
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

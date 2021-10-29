@@ -4,11 +4,11 @@ using Microsoft.Extensions.Logging;
 using Umbraco.Cms.Core.Web;
 using Umbraco.Cms.Web.Common.Controllers;
 
-namespace Application.Web.Controllers.Hijacks
+namespace Application.Web.Controllers.Areas.Hijacks.Controllers
 {
-    public class Error404Controller : RenderController
+    public class HomeController : RenderController
     {
-        public Error404Controller(ILogger<BasicContentController> logger, ICompositeViewEngine compositeViewEngine, IUmbracoContextAccessor umbracoContextAccessor)
+        public HomeController(ILogger<HomeController> logger, ICompositeViewEngine compositeViewEngine, IUmbracoContextAccessor umbracoContextAccessor)
            : base(logger, compositeViewEngine, umbracoContextAccessor)
         {
         }

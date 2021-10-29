@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Application.Core.Extensions;
 using Umbraco.Cms.Core.Models.PublishedContent;
+using Umbraco.Extensions;
+using System.Text;
+using Umbraco.Cms.Core.Routing;
 
 namespace Application.Core.Services
 {
     public interface ISitemapXmlGenerator
     {
-        List<SitemapXmlItem> GetSitemap(int nodeId, string baseUrl);
+        string GetSitemap(Domain domain, string scheme);
     }
 
     public class SitemapXmlGenerator : ISitemapXmlGenerator
@@ -21,17 +24,33 @@ namespace Application.Core.Services
             _cmsService = cmsService;
         }
 
-        public List<SitemapXmlItem> GetSitemap(int nodeId, string baseUrl)
+        public string GetSitemap(Domain domain, string scheme)
         {
             var sitemapItems = new List<SitemapXmlItem>();
 
-            var siteRoot = _cmsService.GetSiteRoot(nodeId);
-            var home = _cmsService.GetHome(nodeId);
+            var siteRoot = _cmsService.GetSiteRoot(domain.ContentId);
+            var home = _cmsService.GetHome(domain.ContentId);
 
-            sitemapItems = ProcessSitemapItems(baseUrl, sitemapItems, new List<IPublishedContent>() { home });
+            var baseUrl = domain.Name.Contains(scheme) ? domain.Name : $"{scheme}{domain.Name}";
+           // sitemapItems = ProcessSitemapItems(baseUrl, sitemapItems, new List<IPublishedContent>() { siteRoot });
             sitemapItems = ProcessSitemapItems(baseUrl, sitemapItems, siteRoot.Children.Where(x => x.Id != home.Id));
 
-            return sitemapItems;
+           // sitemapItems.First().Url = baseUrl; // ensure first node is the base url
+
+            var sb = new StringBuilder($"<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+            sb.AppendLine("<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">");
+            foreach (var item in sitemapItems)
+            {
+                sb.AppendLine("<url>");
+                sb.AppendLine($"<loc>{item.Url}</loc>");
+                sb.AppendLine($"<lastmod>{item.LastModified}</lastmod>");
+                sb.AppendLine($"<changefreq>{item.ChangeFreq}</changefreq>");
+                sb.AppendLine($"<priority>{item.Priority}</priority>");
+                sb.AppendLine("</url>");
+            }
+            sb.AppendLine("</urlset>");
+
+            return sb.ToString();
         }
 
         private List<SitemapXmlItem> ProcessSitemapItems(string baseUrl, List<SitemapXmlItem> sitemapItems, IEnumerable<IPublishedContent> nodes)
@@ -57,7 +76,7 @@ namespace Application.Core.Services
             {
                 ChangeFreq = GetValueOrDefault(node, "seoFrequency", "monthly"),
                 Priority = GetValueOrDefault(node, "seoPriority", "0.5"),
-                Url = $"{baseUrl}/{defaultPath ?? node.UrlSegment()}",
+                Url = $"{baseUrl}/{defaultPath ?? node.UrlSegment}",
                 LastModified = string.Format("{0:s}+00:00", node.UpdateDate),
             };
 
@@ -67,7 +86,7 @@ namespace Application.Core.Services
 
         private string GetValueOrDefault(IPublishedContent node, string alias, string defaultValue)
         {
-            var settings = node.Value<IEnumerable<IPublishedElement>>("pageSettings");
+            var settings = node.GetProperty("pageSettings").GetValue() as IEnumerable <IPublishedElement>;
 
             string value;
             if (settings != null)
@@ -79,7 +98,7 @@ namespace Application.Core.Services
                     return defaultValue;
                 }
 
-                value = element.Value<string>(alias);
+                value = element.GetProperty(alias).GetValue() as string;
                 if (string.IsNullOrEmpty(value))
                 {
                     value = defaultValue;

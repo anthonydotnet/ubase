@@ -5,13 +5,19 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Web", "Application.Web\Application.Web.csproj", "{B603937F-9AFA-4245-97D1-BCFD3A7901D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Core", "Application.Core\Application.Core.csproj", "{2AF45CAD-5BBD-43B1-897E-45C0EDB95389}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Core", "Application.Core\Application.Core.csproj", "{2AF45CAD-5BBD-43B1-897E-45C0EDB95389}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Models", "Application.Models\Application.Models.csproj", "{560E186E-791D-4D1B-B33C-1B5DDCA6188A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Models", "Application.Models\Application.Models.csproj", "{560E186E-791D-4D1B-B33C-1B5DDCA6188A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Features", "Features", "{BD859FBC-C823-4C63-9381-B63F114A318A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.ExampleFeature", "Features\Application.ExampleFeature\Application.ExampleFeature.csproj", "{8B432528-9F6E-4EA2-B48E-2799CFA8F214}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.ExampleFeature", "Features\Application.ExampleFeature\Application.ExampleFeature.csproj", "{8B432528-9F6E-4EA2-B48E-2799CFA8F214}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DomainFinder", "DomainFinder", "{92EB89C7-CF70-41A2-B166-B4A2DBC14105}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Our.Umbraco.DomainFinder", "Our.Umbraco.DomainFinder\Our.Umbraco.DomainFinder.csproj", "{4749CF22-B306-44E0-89A6-A8E6F3D41A1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Our.Umbraco.DomainFinder.Test", "Our.Umbraco.DomainFinder.Test\Our.Umbraco.DomainFinder.Test.csproj", "{2660F87C-2915-47E5-AF7E-B8CE3EB6AC43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,12 +41,22 @@ Global
 		{8B432528-9F6E-4EA2-B48E-2799CFA8F214}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B432528-9F6E-4EA2-B48E-2799CFA8F214}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B432528-9F6E-4EA2-B48E-2799CFA8F214}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4749CF22-B306-44E0-89A6-A8E6F3D41A1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4749CF22-B306-44E0-89A6-A8E6F3D41A1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4749CF22-B306-44E0-89A6-A8E6F3D41A1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4749CF22-B306-44E0-89A6-A8E6F3D41A1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2660F87C-2915-47E5-AF7E-B8CE3EB6AC43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2660F87C-2915-47E5-AF7E-B8CE3EB6AC43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2660F87C-2915-47E5-AF7E-B8CE3EB6AC43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2660F87C-2915-47E5-AF7E-B8CE3EB6AC43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8B432528-9F6E-4EA2-B48E-2799CFA8F214} = {BD859FBC-C823-4C63-9381-B63F114A318A}
+		{4749CF22-B306-44E0-89A6-A8E6F3D41A1B} = {92EB89C7-CF70-41A2-B166-B4A2DBC14105}
+		{2660F87C-2915-47E5-AF7E-B8CE3EB6AC43} = {92EB89C7-CF70-41A2-B166-B4A2DBC14105}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F3DD7551-656A-4374-831E-D01D3467BB8C}
