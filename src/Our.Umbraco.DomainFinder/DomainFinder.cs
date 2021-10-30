@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.Routing;
 using Umbraco.Cms.Core.Web;
 using Umbraco.Extensions;
@@ -12,74 +13,93 @@ namespace Our.Umbraco.DomainFinder
     {
         Domain GetDomain(string absoluteUri);
         Domain GetDomain(Uri uri);
+        IEnumerable<Domain> GetDomains(Uri uri);
+        IPublishedContent GetContentByDomain(Domain domain);
     }
 
+    // forked from callumbwhyte/umbraco-routing-extensions
     public class DomainFinder : IDomainFinder
     {
         private readonly IUmbracoContextFactory _umbracoContextFactory;
-        IEnumerable<Domain> _domains;
-
-        //public DomainFinder(IUmbracoContext umbracoContext)
-        //{
-        //    _domains = umbracoContext.Domains.GetAll(true);
-        //}
 
         public DomainFinder(IUmbracoContextFactory umbracoContextFactory)
         {
             _umbracoContextFactory = umbracoContextFactory;
-            using (UmbracoContextReference umbContextRef = _umbracoContextFactory.EnsureUmbracoContext())
-            {
-                _domains = umbContextRef.UmbracoContext.Domains.GetAll(true);
-            }
         }
 
+        private IEnumerable<Domain> GetDomains()
+        {
+            using (UmbracoContextReference umbContextRef = _umbracoContextFactory.EnsureUmbracoContext())
+            {
+                try
+                {
+                    return umbContextRef.UmbracoContext.Domains.GetAll(true);
+                }
+                catch
+                {
+                    // case where Umbraco is not set up yet.
+                    return new List<Domain>();
+                }
+            }
+        }
 
         public Domain GetDomain(string absoluteUri)
         {
             Uri uri;
-            string url = absoluteUri;
-            var parsed = Uri.TryCreate(absoluteUri, UriKind.Absolute, out uri);
 
-            if (parsed && uri.Scheme.Contains("http"))
+            if (!absoluteUri.StartsWith("http"))
             {
-                return GetDomain(uri);
+                // this is a hack, however Umbraco allows non-scheme hostnames to be stored
+                uri = new Uri($"https://{absoluteUri}", UriKind.Absolute); 
+            }
+            else
+            {
+                uri = new Uri(absoluteUri, UriKind.Absolute);
             }
 
-            return QueryDomainCache(url);
+            return GetDomain(uri);
         }
-
 
         public Domain GetDomain(Uri uri)
         {
-            // get domain without scheme (eg. http:// or https://)
-            // var url = uri.AbsoluteUri.Replace(uri.GetLeftPart(UriPartial.Scheme), string.Empty);
+            var baseDomains = GetDomains(uri);
 
-            var url = uri.AbsoluteUri;
-            return QueryDomainCache(url);
+            return baseDomains.FirstOrDefault();
         }
 
-        private Domain QueryDomainCache(string url)
+        public IEnumerable<Domain> GetDomains(Uri uri)
         {
-            Domain domain = default(Domain);
+            var domains = GetDomains();
 
-            // trim from the end until domain is encountered
-            var parts = url.Split("/", StringSplitOptions.RemoveEmptyEntries).Reverse();
-            foreach (var part in parts)
+            var uriWithSlash = uri.EndPathWithSlash();
+
+            // DomainAndUri handles parsing cases such as lack of scheme
+            var domainsAndUris = domains.Select(x => new DomainAndUri(x, uri));
+
+            var uriWithoutPort = uriWithSlash.IsDefaultPort ? uriWithSlash : uriWithSlash.WithoutPort();
+            var baseDomains = GetBaseDomains(domainsAndUris, uriWithSlash);
+
+            return baseDomains;
+        }
+
+        public IPublishedContent GetContentByDomain(Domain domain)
+        {
+            if (domain.ContentId < 1)
             {
-                domain = _domains.FirstOrDefault(x => url.StartsWith(x.Name));
-                if (domain == null)
-                {
-                    // try without trailing slash
-                    url = url.TrimEnd("/");
-                    domain = _domains.FirstOrDefault(x => url.StartsWith(x.Name));
-                }
-
-                if (domain != null) { break; }
-
-                url = url.TrimEnd(part);
+                return default(IPublishedContent);
             }
 
-            return domain;
+            using (UmbracoContextReference umbContextRef = _umbracoContextFactory.EnsureUmbracoContext())
+            {
+                return umbContextRef.UmbracoContext.Content.GetById(domain.ContentId);
+            }
+        }
+
+        private IEnumerable<Domain> GetBaseDomains(IEnumerable<DomainAndUri> domainAndUris, Uri uri)
+        {
+            var baseDomains = domainAndUris.Where(x => x.Uri.EndPathWithSlash().IsBaseOf(uri));
+
+            return baseDomains;
         }
     }
 }

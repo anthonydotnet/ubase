@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application.Models\Application.Models.csproj" />
     <ProjectReference Include="..\Our.Umbraco.DomainFinder\Our.Umbraco.DomainFinder.csproj" />
+    <ProjectReference Include="..\Application.Models\Application.Models.csproj" />
   </ItemGroup>
 
 </Project>

@@ -330,4 +330,5 @@ ASALocalRun/
 .mfractor/
 
 
-src/Application.Models/Models/CmsModels/Generated/ood.flag
+ood.flag
+.DS_Store

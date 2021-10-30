@@ -11,7 +11,6 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.ICU.ICU4C.Runtime" Version="68.2.0.6" />
         <PackageReference Include="uSync" Version="9.0.2" />
-        <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="68.2" />
     </ItemGroup>
 
     <ItemGroup>

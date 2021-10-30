@@ -5,6 +5,7 @@ using Umbraco.Cms.Core.Web;
 using Umbraco.Cms.Core.Routing;
 using System.Collections.Generic;
 using Umbraco.Cms.Core.PublishedCache;
+using System.Linq;
 
 namespace Our.Umbraco.DomainFinder.Test
 {
@@ -27,25 +28,111 @@ namespace Our.Umbraco.DomainFinder.Test
             _umbracoContextMock.Setup(x => x.Domains).Returns(_domainCacheMock.Object);
         }
 
+        [Theory]        
+        [InlineData("mydomain.com", "http://mydomain.com")]
+        [InlineData("mydomain.com", "https://mydomain.com")]
+        [InlineData("mydomain.com/fr/", "https://mydomain.com/fr/")]
+        [InlineData("mydomain.com/ch/fr/", "https://mydomain.com/ch/fr/")]
+        public void AbsoluteUri_Without_Scheme_Is_Found(string cachedDomain, string domainToFind )
+        {
+            RunGenericTest(cachedDomain, domainToFind);
+        }
+
+
         [Theory]
-        [InlineData("mydomain.com/", "mydomain.com/")]
-        [InlineData("mydomain.com", "mydomain.com/")]
-        [InlineData("https://mydomain.com", "https://mydomain.com")] 
         [InlineData("https://mydomain.com/", "https://mydomain.com/")]
-        [InlineData("https://mydomain.com:1234", "https://mydomain.com:1234/")]
-        [InlineData("https://mydomain.com:1234/", "https://mydomain.com:1234/")]
-        [InlineData("https://mydomain.com", "https://mydomain.com/about-us/")]
-        [InlineData("https://mydomain.com/", "https://mydomain.com/about-us/")]
+        [InlineData("https://mydomain.com", "https://mydomain.com/")]
+        public void AbsoluteUri_With_Trailing_Slash_Is_Truncated_Until_Domain_Is_Found(string cachedDomain, string domainToFind)
+        {
+            RunGenericTest(cachedDomain, domainToFind);
+        }
+
+        [Theory]
         [InlineData("https://mydomain.com/fr", "https://mydomain.com/fr/")]
         [InlineData("https://mydomain.com/fr/", "https://mydomain.com/fr/")]
         [InlineData("https://mydomain.com/ch/fr", "https://mydomain.com/ch/fr/")]
         [InlineData("https://mydomain.com/ch/fr/", "https://mydomain.com/ch/fr/")]
-        [InlineData("https://mydomain.com/ch/fr/", "https://mydomain.com/ch/fr/about-us/")]
-        public void Domain_Is_Found(string cachedDomain, string domainToFind )
+        public void AbsoluteUri_With_Path_Segment_Is_Found(string cachedDomain, string domainToFind)
+        {
+            RunGenericTest(cachedDomain, domainToFind);
+        }
+
+
+        [Theory]
+        [InlineData("https://mydomain.com/", "https://mydomain.com")]
+        [InlineData("https://mydomain.com/ch/fr/", "https://mydomain.com/ch/fr")]
+        [InlineData("https://mydomain.com:1234/", "https://mydomain.com:1234")]
+        [InlineData("localhost:1234/", "https://localhost:1234")]
+        [InlineData("localhost:1234/ch/fr", "http://localhost:1234/ch/fr")]
+        public void AbsoluteUri_Without_Trailing_Slash_Is_Found(string cachedDomain, string domainToFind)
+        {
+            RunGenericTest(cachedDomain, domainToFind);
+        }
+
+
+
+        [Theory]
+        [InlineData("https://mydomain.com", "https://mydomain.com/about-us/")]
+        [InlineData("https://mydomain.com", "https://mydomain.com/news/my-article/")]
+        [InlineData("https://mydomain.com/ch/fr", "https://mydomain.com/ch/fr/news/my-article/")]
+        public void AbsoluteUri_With_Path_Segment_Is_Truncated_Until_Domain_Is_Found(string cachedDomain, string domainToFind)
+        {
+            RunGenericTest(cachedDomain, domainToFind);
+        }
+
+
+        [Theory]
+        [InlineData("https://mydomain.com:1234", "https://mydomain.com:1234/")]
+        [InlineData("https://mydomain.com:1234/", "https://mydomain.com:1234/")]
+        public void AbsoluteUri_With_Port_Is_Found(string cachedDomain, string domainToFind)
+        {
+            RunGenericTest(cachedDomain, domainToFind);
+        }
+
+        [Theory]
+        [InlineData("https://mydomain.com/ch/fr/", "https://mydomain.com")]
+        [InlineData("http://mydomain.com:1234", "https://mydomain.com:1234")]
+        [InlineData("https://mydomain.com:1234", "http://mydomain.com:1234")]
+        [InlineData("https://mydomain.com:1234", "http://mydomain.com:9999")]
+        public void Domain_Is_Not_Found(string cachedDomain, string domainToFind)
         {
             var domains = new List<Domain>()
             {
-                new Domain (123, cachedDomain, 1092, "en-UK", false)
+                new Domain (123, cachedDomain, 1092, "en-US", false)
+            };
+            _domainCacheMock.Setup(x => x.GetAll(true)).Returns(domains);
+
+            var domainFinder = new DomainFinder(_umbracoContextFactoryMock.Object);
+
+            var res = domainFinder.GetDomain(domainToFind);
+
+            Assert.Null(res);
+        }
+
+
+        [Fact]
+        public void AbsoluteUri_Has_Multiple_Found()
+        {
+            var domains = new List<Domain>()
+            {
+                new Domain (123, "http://localhost/ch", 1092, "en-US", false),
+                new Domain (1234, "http://localhost/ch/fr", 1093, "en-US", false)
+            };
+            _domainCacheMock.Setup(x => x.GetAll(true)).Returns(domains);
+
+            var domainFinder = new DomainFinder(_umbracoContextFactoryMock.Object);
+
+            var res = domainFinder.GetDomains(new System.Uri("http://localhost/ch/fr/about-us"));
+
+            Assert.True(res.Count() == 2);
+        }
+
+
+        private void RunGenericTest(string cachedDomain, string domainToFind)
+        {
+            var domains = new List<Domain>()
+            {
+                new Domain (123, cachedDomain, 1092, "en-US", false)
             };
             _domainCacheMock.Setup(x => x.GetAll(true)).Returns(domains);
 
@@ -55,29 +142,6 @@ namespace Our.Umbraco.DomainFinder.Test
 
             Assert.NotNull(res);
             Assert.Equal(domains[0].ContentId, res.ContentId);
-        }
-
-
-        [Theory]
-        [InlineData("https://mydomain.com/ch/fr/", "https://mydomain.com/ch/fr")]
-        [InlineData("https://mydomain.com/ch/fr/", "https://mydomain.com")]
-        [InlineData("https://mydomain.com:1234/", "mydomain.com:1234")]
-        [InlineData("mydomain.com:1234/", "mydomain.com:1234")]
-        [InlineData("mydomain.com/", "mydomain.com")]
-        [InlineData("https://mydomain.com:1234", "mydomain.com:1234")]
-        public void Domain_Is_Not_Found(string cachedDomain, string domainToFind)
-        {
-            var domains = new List<Domain>()
-            {
-                new Domain (123, cachedDomain, 1092, "en-UK", false)
-            };
-            _domainCacheMock.Setup(x => x.GetAll(true)).Returns(domains);
-
-            var domainFinder = new DomainFinder(_umbracoContextFactoryMock.Object);
-
-            var res = domainFinder.GetDomain(domainToFind);
-
-            Assert.Null(res);
         }
     }
 }
