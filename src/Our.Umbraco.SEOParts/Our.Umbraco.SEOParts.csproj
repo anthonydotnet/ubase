@@ -28,8 +28,6 @@
     <PackageReference Include="Umbraco.Cms.Web.Common" Version="9.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="Controllers\RobotsTxtController.cs" />
-    <Compile Remove="Routing\RobotsTxtRoute.cs" />
     <Compile Remove="SitemapXmlGeneratorCachedProxy.cs" />
   </ItemGroup>
 </Project>
