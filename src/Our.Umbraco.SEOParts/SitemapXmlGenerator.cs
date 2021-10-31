@@ -34,15 +34,11 @@ namespace Our.Umbraco.SEOParts
         public string GetSitemap(Domain domain, string scheme)
         {
             var sitemapItems = new List<SitemapXmlItem>();
-            
             var siteRoot = _domainFinder.GetContentByDomain(domain);
-            //var home = _cmsService.GetHome(domain.ContentId);
 
             var baseUrl = domain.Name.Contains(scheme) ? domain.Name : $"{scheme}{domain.Name}";
             sitemapItems = ProcessSitemapItems(baseUrl, sitemapItems, new List<IPublishedContent>() { siteRoot });
             sitemapItems = ProcessSitemapItems(baseUrl, sitemapItems, siteRoot.Children);
-
-            // sitemapItems.First().Url = baseUrl; // ensure first node is the base url
 
             var sb = new StringBuilder($"<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             sb.AppendLine("<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">");

@@ -5,8 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Our.Umbraco.SEOParts.Composers
 {
-   // [ComposeAfter(typeof(IoCComposer))]
-    public class SitemapXmlIoCComposer : IComposer
+    public class SitemapXmlComposer : IComposer
     {
         public void Compose(IUmbracoBuilder builder)
         {
