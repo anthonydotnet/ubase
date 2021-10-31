@@ -1,14 +1,15 @@
-﻿using Application.Models.CmsModels;
-using Application.Models.Models.ViewModels;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Application.Core.Extensions;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Extensions;
 using System.Text;
 using Umbraco.Cms.Core.Routing;
+using Our.Umbraco.DomainFinder;
+using Our.Umbraco.SEOParts.Models;
+using Our.Umbraco.SEOParts.Extensions;
+using Microsoft.Extensions.Configuration;
 
-namespace Application.Core.Services
+namespace Our.Umbraco.SEOParts
 {
     public interface ISitemapXmlGenerator
     {
@@ -17,25 +18,31 @@ namespace Application.Core.Services
 
     public class SitemapXmlGenerator : ISitemapXmlGenerator
     {
-        private readonly ICmsService _cmsService;
+        IDomainFinder _domainFinder;
+        private readonly IConfiguration _config;
+        private IEnumerable<string> _excludeAliases;
 
-        public SitemapXmlGenerator(ICmsService cmsService)
+        public SitemapXmlGenerator(IDomainFinder domainFinder, IConfiguration config)
         {
-            _cmsService = cmsService;
+            _domainFinder = domainFinder;
+            _config = config;
+
+            var temp = _config.GetValue<string>("SEO:ExcludeAliases");
+            _excludeAliases = temp != null ? temp.Split(",") : new List<string>();
         }
 
         public string GetSitemap(Domain domain, string scheme)
         {
             var sitemapItems = new List<SitemapXmlItem>();
-
-            var siteRoot = _cmsService.GetSiteRoot(domain.ContentId);
-            var home = _cmsService.GetHome(domain.ContentId);
+            
+            var siteRoot = _domainFinder.GetContentByDomain(domain);
+            //var home = _cmsService.GetHome(domain.ContentId);
 
             var baseUrl = domain.Name.Contains(scheme) ? domain.Name : $"{scheme}{domain.Name}";
-           // sitemapItems = ProcessSitemapItems(baseUrl, sitemapItems, new List<IPublishedContent>() { siteRoot });
-            sitemapItems = ProcessSitemapItems(baseUrl, sitemapItems, siteRoot.Children.Where(x => x.Id != home.Id));
+            sitemapItems = ProcessSitemapItems(baseUrl, sitemapItems, new List<IPublishedContent>() { siteRoot });
+            sitemapItems = ProcessSitemapItems(baseUrl, sitemapItems, siteRoot.Children);
 
-           // sitemapItems.First().Url = baseUrl; // ensure first node is the base url
+            // sitemapItems.First().Url = baseUrl; // ensure first node is the base url
 
             var sb = new StringBuilder($"<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             sb.AppendLine("<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">");
@@ -55,11 +62,13 @@ namespace Application.Core.Services
 
         private List<SitemapXmlItem> ProcessSitemapItems(string baseUrl, List<SitemapXmlItem> sitemapItems, IEnumerable<IPublishedContent> nodes)
         {
-            foreach (var node in nodes)
+            var filtered = nodes.Where(x => !_excludeAliases.Contains(x.ContentType.Alias));
+
+            foreach (var node in filtered)
             {
                 if (CanProcessNode(node))
                 {
-                    sitemapItems.Add(CreateSitemapItem( baseUrl, node));
+                    sitemapItems.Add(CreateSitemapItem(baseUrl, node));
                     if (node.Children.Any())
                     {
                         sitemapItems = ProcessSitemapItems(baseUrl, sitemapItems, node.Children);
@@ -86,12 +95,17 @@ namespace Application.Core.Services
 
         private string GetValueOrDefault(IPublishedContent node, string alias, string defaultValue)
         {
-            var settings = node.GetProperty("pageSettings").GetValue() as IEnumerable <IPublishedElement>;
+            if (!node.HasProperty("pageSettings") || !node.GetProperty("pageSettings").HasValue())
+            {
+                return defaultValue;
+            }
+
+            var settings = node.GetProperty("pageSettings").GetValue() as IEnumerable<IPublishedElement>;
 
             string value;
             if (settings != null)
             {
-                var element = settings.FirstOrDefault(x => x.ContentType.Alias == ElementSeoSettings.ModelTypeAlias);
+                var element = settings.FirstOrDefault(x => x.ContentType.Alias == "elementSeoSettings");
 
                 if (element == null)
                 {
@@ -114,22 +128,18 @@ namespace Application.Core.Services
 
         private bool CanProcessNode(IPublishedContent page)
         {
-            var item = page as IPageSettingsMixin;
-
-            if (page.ContentType.Alias == Error404.ModelTypeAlias)
+            if (page.HasProperty("pageSettings") && page.GetProperty("pageSettings").HasValue())
             {
-                return false;
-            }
+                var pageSettings = page.GetProperty("pageSettings").GetValue() as IEnumerable<IPublishedElement>;
 
-            if (item?.PageSettings != null)
-            {
-                var hide = item.PageSettings.GetElementValue<bool>(ElementSeoSettings.ModelTypeAlias, "hideFromSitemapXml");
+                var hide = pageSettings.GetElementValue<bool>("elementSeoSettings", "hideFromSitemapXml");
+
                 if (!hide)
                 {
                     return true;
                 }
             }
-            else if (item == null && page.TemplateId != 0)
+            else if (page.TemplateId != 0)
             {
                 return true;
             }

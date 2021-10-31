@@ -3,7 +3,7 @@ using System.Linq;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Extensions;
 
-namespace Application.Core.Extensions
+namespace Our.Umbraco.SEOParts.Extensions
 {
     public static class IPublishedElementExtensions
     {

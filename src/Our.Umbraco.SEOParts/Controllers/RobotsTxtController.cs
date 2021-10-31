@@ -12,7 +12,7 @@ using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.Routing;
 using Our.Umbraco.DomainFinder;
 
-namespace Application.Core.SEO.Controllers
+namespace Our.Umbraco.SEOParts.Controllers
 {
     public class RobotsTxtController : UmbracoPageController, IVirtualPageController
     {

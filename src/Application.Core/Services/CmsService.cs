@@ -8,6 +8,7 @@ using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PublishedCache;
 using Umbraco.Cms.Core.Routing;
 using Umbraco.Cms.Core.Web;
+using Umbraco.Cms.Web;
 using Umbraco.Extensions;
 
 namespace Application.Core.Services
@@ -43,7 +44,8 @@ namespace Application.Core.Services
                 throw new Exception($"Node with id {currentNodeId} is null.");
             }
 
-            var siteNode = node.AncestorsOrSelf().SingleOrDefault(x => x.ContentType.Alias == SiteRoot.ModelTypeAlias) as SiteRoot;
+            var foundNode = node.AncestorsOrSelf().SingleOrDefault(x => x.ContentType.Alias == SiteRoot.ModelTypeAlias);
+            var siteNode = foundNode as SiteRoot;
 
             if (siteNode == null)
             {

@@ -1,4 +1,4 @@
-﻿namespace Application.Models.Models.ViewModels
+﻿namespace Our.Umbraco.SEOParts.Models
 {
     public class SitemapXmlItem
     {

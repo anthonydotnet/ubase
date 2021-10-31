@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Composers\" />
+    <None Remove="Controllers\" />
+    <None Remove="Routing\" />
+    <None Remove="Umbraco.Cms.Core" />
+    <None Remove="Models\" />
+    <None Remove="Umbraco.Cms.Web.Common" />
+    <None Remove="Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Composers\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Routing\" />
+    <Folder Include="Models\" />
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Our.Umbraco.DomainFinder\Our.Umbraco.DomainFinder.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Umbraco.Cms.Core" Version="9.0.1" />
+    <PackageReference Include="Umbraco.Cms.Web.Common" Version="9.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Controllers\RobotsTxtController.cs" />
+    <Compile Remove="Routing\RobotsTxtRoute.cs" />
+    <Compile Remove="SitemapXmlGeneratorCachedProxy.cs" />
+  </ItemGroup>
+</Project>

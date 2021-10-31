@@ -1,12 +1,11 @@
 ﻿using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.Composing;
 using Microsoft.Extensions.DependencyInjection;
-using Application.Core.Services;
-using Application.Core.App_Start;
 
-namespace Application.Core.SEO.Composers
+
+namespace Our.Umbraco.SEOParts.Composers
 {
-    [ComposeAfter(typeof(IoCComposer))]
+   // [ComposeAfter(typeof(IoCComposer))]
     public class SitemapXmlIoCComposer : IComposer
     {
         public void Compose(IUmbracoBuilder builder)

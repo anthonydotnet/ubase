@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Rewrite;
 using Umbraco.Cms.Web.Common.ApplicationBuilder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
-using Application.Core.SEO.Controllers;
+using Our.Umbraco.SEOParts.Controllers;
 
 namespace Application.Core.SEO.Routing
 {

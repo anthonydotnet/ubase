@@ -1,5 +1,4 @@
-﻿using Application.Core.Services;
-using Umbraco.Cms.Web.Common.Controllers;
+﻿using Umbraco.Cms.Web.Common.Controllers;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Umbraco.Cms.Core.Web;
@@ -12,7 +11,7 @@ using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.Routing;
 using Our.Umbraco.DomainFinder;
 
-namespace Application.Core.SEO.Controllers
+namespace Our.Umbraco.SEOParts.Controllers
 {
     public class SitemapXmlController : UmbracoPageController, IVirtualPageController
     {
@@ -22,7 +21,7 @@ namespace Application.Core.SEO.Controllers
         private readonly ISitemapXmlGenerator _sitemapXmlGenerator;
 
         Domain _domain;
-        public SitemapXmlController(ILogger<RobotsTxtController> logger, ICompositeViewEngine compositeViewEngine, IUmbracoContextAccessor umbracoContextAccessor, IHttpContextAccessor httpContextAccessor, IDomainFinder domainFinder, ISitemapXmlGenerator sitemapXmlGenerator)
+        public SitemapXmlController(ILogger<SitemapXmlController> logger, ICompositeViewEngine compositeViewEngine, IUmbracoContextAccessor umbracoContextAccessor, IHttpContextAccessor httpContextAccessor, IDomainFinder domainFinder, ISitemapXmlGenerator sitemapXmlGenerator)
           : base(logger, compositeViewEngine)
         {
             _umbracoContextAccessor = umbracoContextAccessor;

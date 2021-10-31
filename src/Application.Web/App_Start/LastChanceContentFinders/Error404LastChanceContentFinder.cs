@@ -32,6 +32,11 @@ namespace Application.Web.App_Start.LastChanceContentFinders
         {
             var domain = _domainFinder.GetDomain(contentRequest.Uri);
 
+            if (domain == null)
+            {
+                return false;
+            }
+
             var notFoundNode = _cmsService.GetError404(domain.ContentId);
 
             if (notFoundNode != null)

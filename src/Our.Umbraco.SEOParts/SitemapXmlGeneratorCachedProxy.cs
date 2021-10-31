@@ -4,7 +4,7 @@ using DangEasy.Interfaces.Caching;
 using System.Collections.Generic;
 using Umbraco.Cms.Core.Routing;
 
-namespace Application.Core.Services.CachedProxies
+namespace Our.Umbraco.SEOParts
 {
     public class SitemapXmlGeneratorCachedProxy : ISitemapXmlGenerator
     {
